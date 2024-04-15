@@ -1,8 +1,10 @@
 import tkinter as tk
 from PIL import ImageTk, Image
+import os
 
 angulo_rotacion = 0
 config = 1
+nj = False
 imagenes1_1 = []
 imagenes1_2 = []
 imagenes2_1 = []
@@ -11,6 +13,9 @@ imagenes3_1 = []
 imagenes3_2 = []
 verif_pos_1 = []
 verif_pos_2 = []
+barcos_jugador1 = []
+barcos_jugador2 = []
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def cambiar_config(num:int):
     global config
@@ -25,384 +30,423 @@ def salir_juego():
     exit()
 
 def mostrar_imagen(event):
-    boton = event.widget
-    for f in range(len(matriz_botones)):
-        for c in range(len(matriz_botones[f])):
-            if matriz_botones[f][c] == boton:
-                if config == 1:
-                    boton.configure(bg="Green")
-                try:
-                    if config == 2 and angulo_rotacion == 0:
-                        if c > 0:
-                            boton.configure(bg="Green")
-                            matriz_botones[f][c-1].configure(bg="Green")
-                        else:
+    if nj == False:
+        boton = event.widget
+        for f in range(len(matriz_botones)):
+            for c in range(len(matriz_botones[f])):
+                if matriz_botones[f][c] == boton:
+                    if config == 1:
+                        boton.configure(bg="Green")
+                    try:
+                        if config == 2 and angulo_rotacion == 0:
+                            if c > 0:
+                                boton.configure(bg="Green")
+                                matriz_botones[f][c-1].configure(bg="Green")
+                            else:
+                                boton.configure(bg="Red")
+                        elif config == 2 and angulo_rotacion == 270:
+                            if f > 0:
+                                boton.configure(bg="Green")
+                                matriz_botones[f-1][c].configure(bg="Green")
+                            else:
+                                boton.configure(bg="Red")
+                        elif config == 2 and angulo_rotacion == 180:
+                            if c < columns:
+                                boton.configure(bg="Green")
+                                matriz_botones[f][c+1].configure(bg="Green")
+                            if c == columns:
+                                boton.configure(bg="Red")
+                        elif config == 2 and angulo_rotacion == 90:
+                            if f < rows:
+                                boton.configure(bg="Green")
+                                matriz_botones[f+1][c].configure(bg="Green")
+                    except IndexError:
+                        boton.configure(bg="Red")
+                    try:
+                        if config == 3 and angulo_rotacion == 0:
+                            if c > 1:
+                                boton.configure(bg="Green")
+                                matriz_botones[f][c-1].configure(bg="Green")
+                                matriz_botones[f][c-2].configure(bg="Green")
+                            elif c > 0:
+                                boton.configure(bg="Red")
+                                matriz_botones[f][c-1].configure(bg="Red")
+                            elif c == 0:
+                                boton.configure(bg="Red")
+                        elif config == 3 and angulo_rotacion == 270:
+                            if f > 1:
+                                boton.configure(bg="Green")
+                                matriz_botones[f-1][c].configure(bg="Green")
+                                matriz_botones[f-2][c].configure(bg="Green")
+                            elif f == 1:
+                                boton.configure(bg="Red")
+                                matriz_botones[f-1][c].configure(bg="Red")
+                            elif f == 0:
+                                boton.configure(bg="Red")
+                        elif config == 3 and angulo_rotacion == 180:
+                            if c < columns-1:
+                                boton.configure(bg="Green")
+                                matriz_botones[f][c+1].configure(bg="Green")
+                                matriz_botones[f][c+2].configure(bg="Green")
+                            else:
+                                boton.configure(bg="Red")
+                        elif config == 3 and angulo_rotacion == 90:
+                            if f < rows-1:
+                                boton.configure(bg="Green")
+                                matriz_botones[f+1][c].configure(bg="Green")
+                                matriz_botones[f+2][c].configure(bg="Green")
+                            else:
+                                boton.configure(bg="Red")
+                                matriz_botones[f+1][c].configure(bg="Red")
+                    except IndexError:
+                        boton.configure(bg="Red")
+                        if angulo_rotacion == 180:
                             boton.configure(bg="Red")
-                    elif config == 2 and angulo_rotacion == 270:
-                        if f > 0:
-                            boton.configure(bg="Green")
-                            matriz_botones[f-1][c].configure(bg="Green")
-                        else:
-                            boton.configure(bg="Red")
-                    elif config == 2 and angulo_rotacion == 180:
-                        if c < columns:
-                            boton.configure(bg="Green")
-                            matriz_botones[f][c+1].configure(bg="Green")
-                        if c == columns:
-                            boton.configure(bg="Red")
-                    elif config == 2 and angulo_rotacion == 90:
-                        if f < rows:
-                            boton.configure(bg="Green")
-                            matriz_botones[f+1][c].configure(bg="Green")
-                except IndexError:
-                    boton.configure(bg="Red")
-                try:
-                    if config == 3 and angulo_rotacion == 0:
-                        if c > 1:
-                            boton.configure(bg="Green")
-                            matriz_botones[f][c-1].configure(bg="Green")
-                            matriz_botones[f][c-2].configure(bg="Green")
-                        elif c > 0:
-                            boton.configure(bg="Red")
-                            matriz_botones[f][c-1].configure(bg="Red")
-                        elif c == 0:
-                            boton.configure(bg="Red")
-                    elif config == 3 and angulo_rotacion == 270:
-                        if f > 1:
-                            boton.configure(bg="Green")
-                            matriz_botones[f-1][c].configure(bg="Green")
-                            matriz_botones[f-2][c].configure(bg="Green")
-                        elif f == 1:
-                            boton.configure(bg="Red")
-                            matriz_botones[f-1][c].configure(bg="Red")
-                        elif f == 0:
-                            boton.configure(bg="Red")
-                    elif config == 3 and angulo_rotacion == 180:
-                        if c < columns-1:
-                            boton.configure(bg="Green")
-                            matriz_botones[f][c+1].configure(bg="Green")
-                            matriz_botones[f][c+2].configure(bg="Green")
-                        else:
-                            boton.configure(bg="Red")
-                    elif config == 3 and angulo_rotacion == 90:
-                        if f < rows-1:
-                            boton.configure(bg="Green")
-                            matriz_botones[f+1][c].configure(bg="Green")
-                            matriz_botones[f+2][c].configure(bg="Green")
-                        else:
+                            matriz_botones[f][c+1].configure(bg="Red")
+                        if angulo_rotacion == 270:
                             boton.configure(bg="Red")
                             matriz_botones[f+1][c].configure(bg="Red")
-                except IndexError:
-                    boton.configure(bg="Red")
-                    if angulo_rotacion == 180:
-                        boton.configure(bg="Red")
-                        matriz_botones[f][c+1].configure(bg="Red")
-                    if angulo_rotacion == 270:
-                        boton.configure(bg="Red")
-                        matriz_botones[f+1][c].configure(bg="Red")
-                    if angulo_rotacion == 90:
-                        boton.configure(bg="Red")
-                        matriz_botones[f+1][c].configure(bg="Red")
-                    break
+                        if angulo_rotacion == 90:
+                            boton.configure(bg="Red")
+                            matriz_botones[f+1][c].configure(bg="Red")
+                        break
 
 def mostrar_imagen_2(event):
-    boton = event.widget
-    for f in range(len(matriz_botones_2)):
-        for c in range(len(matriz_botones_2[f])):
-            if matriz_botones_2[f][c] == boton:
-                if config == 1:
-                    boton.configure(bg="Green")
-                try:
-                    if config == 2 and angulo_rotacion == 0:
-                        if c > 0:
-                            boton.configure(bg="Green")
-                            matriz_botones_2[f][c-1].configure(bg="Green")
-                        else:
+    if nj == True:
+        boton = event.widget
+        for f in range(len(matriz_botones_2)):
+            for c in range(len(matriz_botones_2[f])):
+                if matriz_botones_2[f][c] == boton:
+                    if config == 1:
+                        boton.configure(bg="Green")
+                    try:
+                        if config == 2 and angulo_rotacion == 0:
+                            if c > 0:
+                                boton.configure(bg="Green")
+                                matriz_botones_2[f][c-1].configure(bg="Green")
+                            else:
+                                boton.configure(bg="Red")
+                        elif config == 2 and angulo_rotacion == 270:
+                            if f > 0:
+                                boton.configure(bg="Green")
+                                matriz_botones_2[f-1][c].configure(bg="Green")
+                            else:
+                                boton.configure(bg="Red")
+                        elif config == 2 and angulo_rotacion == 180:
+                            if c < columns:
+                                boton.configure(bg="Green")
+                                matriz_botones_2[f][c+1].configure(bg="Green")
+                            if c == columns:
+                                boton.configure(bg="Red")
+                        elif config == 2 and angulo_rotacion == 90:
+                            if f < rows:
+                                boton.configure(bg="Green")
+                                matriz_botones_2[f+1][c].configure(bg="Green")
+                    except IndexError:
+                        boton.configure(bg="Red")
+                    try:
+                        if config == 3 and angulo_rotacion == 0:
+                            if c > 1:
+                                boton.configure(bg="Green")
+                                matriz_botones_2[f][c-1].configure(bg="Green")
+                                matriz_botones_2[f][c-2].configure(bg="Green")
+                            elif c > 0:
+                                boton.configure(bg="Red")
+                                matriz_botones_2[f][c-1].configure(bg="Red")
+                            elif c == 0:
+                                boton.configure(bg="Red")
+                        elif config == 3 and angulo_rotacion == 270:
+                            if f > 1:
+                                boton.configure(bg="Green")
+                                matriz_botones_2[f-1][c].configure(bg="Green")
+                                matriz_botones_2[f-2][c].configure(bg="Green")
+                            elif f == 1:
+                                boton.configure(bg="Red")
+                                matriz_botones_2[f-1][c].configure(bg="Red")
+                            elif f == 0:
+                                boton.configure(bg="Red")
+                        elif config == 3 and angulo_rotacion == 180:
+                            if c < columns-1:
+                                boton.configure(bg="Green")
+                                matriz_botones_2[f][c+1].configure(bg="Green")
+                                matriz_botones_2[f][c+2].configure(bg="Green")
+                            else:
+                                boton.configure(bg="Red")
+                        elif config == 3 and angulo_rotacion == 90:
+                            if f < rows-1:
+                                boton.configure(bg="Green")
+                                matriz_botones_2[f+1][c].configure(bg="Green")
+                                matriz_botones_2[f+2][c].configure(bg="Green")
+                            else:
+                                boton.configure(bg="Red")
+                                matriz_botones_2[f+1][c].configure(bg="Red")
+                    except IndexError:
+                        boton.configure(bg="Red")
+                        if angulo_rotacion == 180:
                             boton.configure(bg="Red")
-                    elif config == 2 and angulo_rotacion == 270:
-                        if f > 0:
-                            boton.configure(bg="Green")
-                            matriz_botones_2[f-1][c].configure(bg="Green")
-                        else:
-                            boton.configure(bg="Red")
-                    elif config == 2 and angulo_rotacion == 180:
-                        if c < columns:
-                            boton.configure(bg="Green")
-                            matriz_botones_2[f][c+1].configure(bg="Green")
-                        if c == columns:
-                            boton.configure(bg="Red")
-                    elif config == 2 and angulo_rotacion == 90:
-                        if f < rows:
-                            boton.configure(bg="Green")
-                            matriz_botones_2[f+1][c].configure(bg="Green")
-                except IndexError:
-                    boton.configure(bg="Red")
-                try:
-                    if config == 3 and angulo_rotacion == 0:
-                        if c > 1:
-                            boton.configure(bg="Green")
-                            matriz_botones_2[f][c-1].configure(bg="Green")
-                            matriz_botones_2[f][c-2].configure(bg="Green")
-                        elif c > 0:
-                            boton.configure(bg="Red")
-                            matriz_botones_2[f][c-1].configure(bg="Red")
-                        elif c == 0:
-                            boton.configure(bg="Red")
-                    elif config == 3 and angulo_rotacion == 270:
-                        if f > 1:
-                            boton.configure(bg="Green")
-                            matriz_botones_2[f-1][c].configure(bg="Green")
-                            matriz_botones_2[f-2][c].configure(bg="Green")
-                        elif f == 1:
-                            boton.configure(bg="Red")
-                            matriz_botones_2[f-1][c].configure(bg="Red")
-                        elif f == 0:
-                            boton.configure(bg="Red")
-                    elif config == 3 and angulo_rotacion == 180:
-                        if c < columns-1:
-                            boton.configure(bg="Green")
-                            matriz_botones_2[f][c+1].configure(bg="Green")
-                            matriz_botones_2[f][c+2].configure(bg="Green")
-                        else:
-                            boton.configure(bg="Red")
-                    elif config == 3 and angulo_rotacion == 90:
-                        if f < rows-1:
-                            boton.configure(bg="Green")
-                            matriz_botones_2[f+1][c].configure(bg="Green")
-                            matriz_botones_2[f+2][c].configure(bg="Green")
-                        else:
+                            matriz_botones_2[f][c+1].configure(bg="Red")
+                        if angulo_rotacion == 270:
                             boton.configure(bg="Red")
                             matriz_botones_2[f+1][c].configure(bg="Red")
-                except IndexError:
-                    boton.configure(bg="Red")
-                    if angulo_rotacion == 180:
-                        boton.configure(bg="Red")
-                        matriz_botones_2[f][c+1].configure(bg="Red")
-                    if angulo_rotacion == 270:
-                        boton.configure(bg="Red")
-                        matriz_botones_2[f+1][c].configure(bg="Red")
-                    if angulo_rotacion == 90:
-                        boton.configure(bg="Red")
-                        matriz_botones_2[f+1][c].configure(bg="Red")
-                    break
+                        if angulo_rotacion == 90:
+                            boton.configure(bg="Red")
+                            matriz_botones_2[f+1][c].configure(bg="Red")
+                        break
 
 def ocultar_imagen(event):
-    boton = event.widget
-    for f in range(len(matriz_botones)):
-        for c in range(len(matriz_botones[f])):
-            if matriz_botones[f][c] == boton:
-                boton.configure(bg="Blue")
-                if config == 2 and angulo_rotacion == 0:
-                    if c > 0:
+    if nj == False:
+        boton = event.widget
+        for f in range(len(matriz_botones)):
+            for c in range(len(matriz_botones[f])):
+                if matriz_botones[f][c] == boton:
+                    boton.configure(bg="Blue")
+                    if config == 2 and angulo_rotacion == 0:
+                        if c > 0:
+                            matriz_botones[f][c-1].configure(bg="Blue")
+                    elif config == 2 and angulo_rotacion == 270:
+                        matriz_botones[f-1][c].configure(bg="Blue")
+                    elif config == 2 and angulo_rotacion == 180:
+                        matriz_botones[f][c+1].configure(bg="Blue")
+                    elif config == 2 and angulo_rotacion == 90:
+                        matriz_botones[f+1][c].configure(bg="Blue")
+                    if config == 3 and angulo_rotacion == 0:
                         matriz_botones[f][c-1].configure(bg="Blue")
-                elif config == 2 and angulo_rotacion == 270:
-                    matriz_botones[f-1][c].configure(bg="Blue")
-                elif config == 2 and angulo_rotacion == 180:
-                    matriz_botones[f][c+1].configure(bg="Blue")
-                elif config == 2 and angulo_rotacion == 90:
-                    matriz_botones[f+1][c].configure(bg="Blue")
-                if config == 3 and angulo_rotacion == 0:
-                    matriz_botones[f][c-1].configure(bg="Blue")
-                    matriz_botones[f][c-2].configure(bg="Blue")
-                elif config == 3 and angulo_rotacion == 270:
-                    matriz_botones[f-1][c].configure(bg="Blue")
-                    matriz_botones[f-2][c].configure(bg="Blue")
-                elif config == 3 and angulo_rotacion == 180:
-                    matriz_botones[f][c+1].configure(bg="Blue")
-                    matriz_botones[f][c+2].configure(bg="Blue")
-                elif config == 3 and angulo_rotacion == 90:
-                    matriz_botones[f+1][c].configure(bg="Blue")
-                    matriz_botones[f+2][c].configure(bg="Blue")
-                break
+                        matriz_botones[f][c-2].configure(bg="Blue")
+                    elif config == 3 and angulo_rotacion == 270:
+                        matriz_botones[f-1][c].configure(bg="Blue")
+                        matriz_botones[f-2][c].configure(bg="Blue")
+                    elif config == 3 and angulo_rotacion == 180:
+                        matriz_botones[f][c+1].configure(bg="Blue")
+                        matriz_botones[f][c+2].configure(bg="Blue")
+                    elif config == 3 and angulo_rotacion == 90:
+                        matriz_botones[f+1][c].configure(bg="Blue")
+                        matriz_botones[f+2][c].configure(bg="Blue")
+                    break
 
 def ocultar_imagen_2(event):
-    boton = event.widget
-    for f in range(len(matriz_botones_2)):
-        for c in range(len(matriz_botones_2[f])):
-            if matriz_botones_2[f][c] == boton:
-                boton.configure(bg="Blue")
-                if config == 2 and angulo_rotacion == 0:
-                    if c > 0:
+    if nj == True:
+        boton = event.widget
+        for f in range(len(matriz_botones_2)):
+            for c in range(len(matriz_botones_2[f])):
+                if matriz_botones_2[f][c] == boton:
+                    boton.configure(bg="Blue")
+                    if config == 2 and angulo_rotacion == 0:
+                        if c > 0:
+                            matriz_botones_2[f][c-1].configure(bg="Blue")
+                    elif config == 2 and angulo_rotacion == 270:
+                        matriz_botones_2[f-1][c].configure(bg="Blue")
+                    elif config == 2 and angulo_rotacion == 180:
+                        matriz_botones_2[f][c+1].configure(bg="Blue")
+                    elif config == 2 and angulo_rotacion == 90:
+                        matriz_botones_2[f+1][c].configure(bg="Blue")
+                    if config == 3 and angulo_rotacion == 0:
                         matriz_botones_2[f][c-1].configure(bg="Blue")
-                elif config == 2 and angulo_rotacion == 270:
-                    matriz_botones_2[f-1][c].configure(bg="Blue")
-                elif config == 2 and angulo_rotacion == 180:
-                    matriz_botones_2[f][c+1].configure(bg="Blue")
-                elif config == 2 and angulo_rotacion == 90:
-                    matriz_botones_2[f+1][c].configure(bg="Blue")
-                if config == 3 and angulo_rotacion == 0:
-                    matriz_botones_2[f][c-1].configure(bg="Blue")
-                    matriz_botones_2[f][c-2].configure(bg="Blue")
-                elif config == 3 and angulo_rotacion == 270:
-                    matriz_botones_2[f-1][c].configure(bg="Blue")
-                    matriz_botones_2[f-2][c].configure(bg="Blue")
-                elif config == 3 and angulo_rotacion == 180:
-                    matriz_botones_2[f][c+1].configure(bg="Blue")
-                    matriz_botones_2[f][c+2].configure(bg="Blue")
-                elif config == 3 and angulo_rotacion == 90:
-                    matriz_botones_2[f+1][c].configure(bg="Blue")
-                    matriz_botones_2[f+2][c].configure(bg="Blue")
-                break
+                        matriz_botones_2[f][c-2].configure(bg="Blue")
+                    elif config == 3 and angulo_rotacion == 270:
+                        matriz_botones_2[f-1][c].configure(bg="Blue")
+                        matriz_botones_2[f-2][c].configure(bg="Blue")
+                    elif config == 3 and angulo_rotacion == 180:
+                        matriz_botones_2[f][c+1].configure(bg="Blue")
+                        matriz_botones_2[f][c+2].configure(bg="Blue")
+                    elif config == 3 and angulo_rotacion == 90:
+                        matriz_botones_2[f+1][c].configure(bg="Blue")
+                        matriz_botones_2[f+2][c].configure(bg="Blue")
+                    break
 
 def extra_barcos(posx, posy):
     global verif
-    verif = 1
-    if config == 1:
+    if nj == False:
+        verif = 1
+        if config == 1:
+                var = 0
+                for x in imagenes1_1:
+                    var+=1
+                if var < 6:
+                    if ((posy, posx)) not in verif_pos_1:
+                        matriz_botones[posy][posx].configure(image=rotar_imagen(verif))
+                        verif_pos_1.append((posy, posx))
+                        barcos_jugador1.append((1, (posy, posx), angulo_rotacion, (posy, posx), (posy, posx)))
+        elif config == 2:
             var = 0
-            for x in imagenes1_1:
+            for x in imagenes2_1:
+                var+=1
+            if var < 8:
+                if angulo_rotacion == 0 and ((posy, posx)) not in verif_pos_1 and ((posy, posx-1)) not in verif_pos_1:
+                    if posy < rows and posx > 0 and posx < columns-1:
+                        matriz_botones[posy][posx].configure(image=rotar_imagen_b2(1, verif))
+                        matriz_botones[posy][posx-1].configure(image=rotar_imagen_b2(2, verif))
+                        verif_pos_1.append((posy, posx))
+                        verif_pos_1.append((posy, posx-1))
+                        barcos_jugador1.append((2, (posy, posx), angulo_rotacion, (posy, posx-1), (posy, posx)))
+
+                elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_1 and ((posy, posx+1)) not in verif_pos_1:
+                    if posx < columns-1:
+                        matriz_botones[posy][posx].configure(image=rotar_imagen_b2(1, verif))
+                        matriz_botones[posy][posx+1].configure(image=rotar_imagen_b2(2, verif))
+                        verif_pos_1.append((posy, posx))
+                        verif_pos_1.append((posy, posx+1))
+                        barcos_jugador1.append((2, (posy, posx), angulo_rotacion, (posy, posx+1), (posy, posx)))
+
+                elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_1 and ((posy+1, posx)) not in verif_pos_1:
+                    if posy < rows-1:
+                        matriz_botones[posy][posx].configure(image=rotar_imagen_b2(1, verif))
+                        matriz_botones[posy+1][posx].configure(image=rotar_imagen_b2(2, verif))
+                        verif_pos_1.append((posy, posx))
+                        verif_pos_1.append((posy+1, posx))
+                        barcos_jugador1.append((2, (posy, posx), angulo_rotacion, (posy+1, posx), (posy, posx)))
+
+                elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_1 and ((posy-1, posx)) not in verif_pos_1:
+                    if posy < rows:
+                        matriz_botones[posy][posx].configure(image=rotar_imagen_b2(1, verif))
+                        matriz_botones[posy-1][posx].configure(image=rotar_imagen_b2(2, verif))
+                        verif_pos_1.append((posy, posx))
+                        verif_pos_1.append((posy-1, posx))
+                        barcos_jugador1.append((2, (posy, posx), angulo_rotacion, (posy-1, posx), (posy, posx)))
+
+        elif config == 3:
+            var = 0
+            for x in imagenes3_1:
                 var+=1
             if var < 6:
-                if ((posy, posx)) not in verif_pos_1:
-                    matriz_botones[posy][posx].configure(image=rotar_imagen(verif))
-                    verif_pos_1.append((posy, posx))
-    elif config == 2:
-        var = 0
-        for x in imagenes2_1:
-            var+=1
-        if var < 8:
-            if angulo_rotacion == 0 and ((posy, posx)) not in verif_pos_1 and ((posy, posx-1)) not in verif_pos_1:
-                if posy < rows and posx > 0 and posx < columns-1:
-                    matriz_botones[posy][posx].configure(image=rotar_imagen_b2(1, verif))
-                    matriz_botones[posy][posx-1].configure(image=rotar_imagen_b2(2, verif))
-                    verif_pos_1.append((posy, posx))
-                    verif_pos_1.append((posy, posx-1))
-            elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_1 and ((posy, posx+1)) not in verif_pos_1:
-                if posx < columns-1:
-                    matriz_botones[posy][posx].configure(image=rotar_imagen_b2(1, verif))
-                    matriz_botones[posy][posx+1].configure(image=rotar_imagen_b2(2, verif))
-                    verif_pos_1.append((posy, posx))
-                    verif_pos_1.append((posy, posx+1))
-            elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_1 and ((posy+1, posx)) not in verif_pos_1:
-                if posy < rows-1:
-                    matriz_botones[posy][posx].configure(image=rotar_imagen_b2(1, verif))
-                    matriz_botones[posy+1][posx].configure(image=rotar_imagen_b2(2, verif))
-                    verif_pos_1.append((posy, posx))
-                    verif_pos_1.append((posy+1, posx))
-            elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_1 and ((posy-1, posx)) not in verif_pos_1:
-                if posy < rows:
-                    matriz_botones[posy][posx].configure(image=rotar_imagen_b2(1, verif))
-                    matriz_botones[posy-1][posx].configure(image=rotar_imagen_b2(2, verif))
-                    verif_pos_1.append((posy, posx))
-                    verif_pos_1.append((posy-1, posx))
-    elif config == 3:
-        var = 0
-        for x in imagenes3_1:
-            var+=1
-        if var < 6:
-            if angulo_rotacion == 0 and ((posy, posx)) not in verif_pos_1 and ((posy, posx-1)) not in verif_pos_1 and ((posy, posx-2)) not in verif_pos_1:
-                if posx > 1:
-                    matriz_botones[posy][posx].configure(image=rotar_imagen_b3(1, verif))
-                    matriz_botones[posy][posx-1].configure(image=rotar_imagen_b3(2, verif))
-                    matriz_botones[posy][posx-2].configure(image=rotar_imagen_b3(3, verif))
-                    verif_pos_1.append((posy, posx))
-                    verif_pos_1.append((posy, posx-1))
-                    verif_pos_1.append((posy, posx-2))
-            elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_1 and ((posy, posx+1)) not in verif_pos_1 and ((posy, posx+2)) not in verif_pos_1:
-                if posx < columns-2:
-                    matriz_botones[posy][posx].configure(image=rotar_imagen_b3(1, verif))
-                    matriz_botones[posy][posx+1].configure(image=rotar_imagen_b3(2, verif))
-                    matriz_botones[posy][posx+2].configure(image=rotar_imagen_b3(3, verif))
-                    verif_pos_1.append((posy, posx))
-                    verif_pos_1.append((posy, posx+1))
-                    verif_pos_1.append((posy, posx+2))
-            elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_1 and ((posy+1, posx)) not in verif_pos_1 and ((posy+2, posx)) not in verif_pos_1:
-                if posy < rows-2:
-                    matriz_botones[posy][posx].configure(image=rotar_imagen_b3(1, verif))
-                    matriz_botones[posy+1][posx].configure(image=rotar_imagen_b3(2, verif))
-                    matriz_botones[posy+2][posx].configure(image=rotar_imagen_b3(3, verif))
-                    verif_pos_1.append((posy, posx))
-                    verif_pos_1.append((posy+1, posx))
-                    verif_pos_1.append((posy+2, posx))
-            elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_1 and ((posy-1, posx)) not in verif_pos_1 and ((posy-2, posx)) not in verif_pos_1:
-                if posy > 1:
-                    matriz_botones[posy][posx].configure(image=rotar_imagen_b3(1, verif))
-                    matriz_botones[posy-1][posx].configure(image=rotar_imagen_b3(2, verif))
-                    matriz_botones[posy-2][posx].configure(image=rotar_imagen_b3(3, verif))
-                    verif_pos_1.append((posy, posx))
-                    verif_pos_1.append((posy-1, posx))
-                    verif_pos_1.append((posy-2, posx))
+                if angulo_rotacion == 0 and ((posy, posx)) not in verif_pos_1 and ((posy, posx-1)) not in verif_pos_1 and ((posy, posx-2)) not in verif_pos_1:
+                    if posx > 1:
+                        matriz_botones[posy][posx].configure(image=rotar_imagen_b3(1, verif))
+                        matriz_botones[posy][posx-1].configure(image=rotar_imagen_b3(2, verif))
+                        matriz_botones[posy][posx-2].configure(image=rotar_imagen_b3(3, verif))
+                        verif_pos_1.append((posy, posx))
+                        verif_pos_1.append((posy, posx-1))
+                        verif_pos_1.append((posy, posx-2))
+                        barcos_jugador1.append((3, (posy, posx), angulo_rotacion, (posy, posx-1), (posy, posx-2)))
+
+                elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_1 and ((posy, posx+1)) not in verif_pos_1 and ((posy, posx+2)) not in verif_pos_1:
+                    if posx < columns-2:
+                        matriz_botones[posy][posx].configure(image=rotar_imagen_b3(1, verif))
+                        matriz_botones[posy][posx+1].configure(image=rotar_imagen_b3(2, verif))
+                        matriz_botones[posy][posx+2].configure(image=rotar_imagen_b3(3, verif))
+                        verif_pos_1.append((posy, posx))
+                        verif_pos_1.append((posy, posx+1))
+                        verif_pos_1.append((posy, posx+2))
+                        barcos_jugador1.append((3, (posy, posx), angulo_rotacion, (posy, posx+1), (posy, posx+2)))
+
+                elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_1 and ((posy+1, posx)) not in verif_pos_1 and ((posy+2, posx)) not in verif_pos_1:
+                    if posy < rows-2:
+                        matriz_botones[posy][posx].configure(image=rotar_imagen_b3(1, verif))
+                        matriz_botones[posy+1][posx].configure(image=rotar_imagen_b3(2, verif))
+                        matriz_botones[posy+2][posx].configure(image=rotar_imagen_b3(3, verif))
+                        verif_pos_1.append((posy, posx))
+                        verif_pos_1.append((posy+1, posx))
+                        verif_pos_1.append((posy+2, posx))
+                        barcos_jugador1.append((3, (posy, posx), angulo_rotacion, (posy+1, posx), (posy+2, posx)))
+
+                elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_1 and ((posy-1, posx)) not in verif_pos_1 and ((posy-2, posx)) not in verif_pos_1:
+                    if posy > 1:
+                        matriz_botones[posy][posx].configure(image=rotar_imagen_b3(1, verif))
+                        matriz_botones[posy-1][posx].configure(image=rotar_imagen_b3(2, verif))
+                        matriz_botones[posy-2][posx].configure(image=rotar_imagen_b3(3, verif))
+                        verif_pos_1.append((posy, posx))
+                        verif_pos_1.append((posy-1, posx))
+                        verif_pos_1.append((posy-2, posx))
+                        barcos_jugador1.append((3, (posy, posx), angulo_rotacion, (posy-1, posx), (posy-2, posx)))
 
 def extra_barcos_2(posx, posy):
     global verif
-    verif = 2
-    if config == 1:
+    if nj == True:
+        verif = 2
+        if config == 1:
+                var = 0
+                for x in imagenes1_2:
+                    var+=1
+                if var < 6:
+                    if ((posy, posx)) not in verif_pos_2:
+                        matriz_botones_2[posy][posx].configure(image=rotar_imagen(verif))
+                        verif_pos_2.append((posy, posx))
+                        barcos_jugador2.append((1, (posy, posx), angulo_rotacion, (posy, posx), (posy, posx)))
+
+        elif config == 2:
             var = 0
-            for x in imagenes1_2:
+            for x in imagenes2_2:
+                var+=1
+            if var < 8:
+                if angulo_rotacion == 0 and ((posy, posx)) not in verif_pos_2 and ((posy, posx-1)) not in verif_pos_2:
+                    if posy < rows and posx > 0 and posx < columns-1:
+                        matriz_botones_2[posy][posx].configure(image=rotar_imagen_b2(1, verif))
+                        matriz_botones_2[posy][posx-1].configure(image=rotar_imagen_b2(2, verif))
+                        verif_pos_2.append((posy, posx))
+                        verif_pos_2.append((posy, posx-1))
+                        barcos_jugador2.append((2, (posy, posx), angulo_rotacion, (posy, posx-1), (posy, posx)))
+
+                elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_2 and ((posy, posx+1)) not in verif_pos_2:
+                    if posx < columns-1:
+                        matriz_botones_2[posy][posx].configure(image=rotar_imagen_b2(1, verif))
+                        matriz_botones_2[posy][posx+1].configure(image=rotar_imagen_b2(2, verif))
+                        verif_pos_2.append((posy, posx))
+                        verif_pos_2.append((posy, posx+1))
+                        barcos_jugador2.append((2, (posy, posx), angulo_rotacion, (posy, posx+1), (posy, posx)))
+                        
+                elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_2 and ((posy+1, posx)) not in verif_pos_2:
+                    if posy < rows-1:
+                        matriz_botones_2[posy][posx].configure(image=rotar_imagen_b2(1, verif))
+                        matriz_botones_2[posy+1][posx].configure(image=rotar_imagen_b2(2, verif))
+                        verif_pos_2.append((posy, posx))
+                        verif_pos_2.append((posy+1, posx))
+                        barcos_jugador2.append((2, (posy, posx), angulo_rotacion, (posy+1, posx), (posy, posx)))
+
+                elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_2 and ((posy-1, posx)) not in verif_pos_2:
+                    if posy < rows:
+                        matriz_botones_2[posy][posx].configure(image=rotar_imagen_b2(1, verif))
+                        matriz_botones_2[posy-1][posx].configure(image=rotar_imagen_b2(2, verif))
+                        verif_pos_2.append((posy, posx))
+                        verif_pos_2.append((posy-1, posx))
+                        barcos_jugador2.append((2, (posy, posx), angulo_rotacion, (posy-1, posx), (posy, posx)))
+
+        elif config == 3:
+            var = 0
+            for x in imagenes3_2:
                 var+=1
             if var < 6:
-                if ((posy, posx)) not in verif_pos_2:
-                    matriz_botones_2[posy][posx].configure(image=rotar_imagen(verif))
-                    verif_pos_2.append((posy, posx))
-    elif config == 2:
-        var = 0
-        for x in imagenes2_2:
-            var+=1
-        if var < 8:
-            if angulo_rotacion == 0 and ((posy, posx)) not in verif_pos_2 and ((posy, posx-1)) not in verif_pos_2:
-                if posy < rows and posx > 0 and posx < columns-1:
-                    matriz_botones_2[posy][posx].configure(image=rotar_imagen_b2(1, verif))
-                    matriz_botones_2[posy][posx-1].configure(image=rotar_imagen_b2(2, verif))
-                    verif_pos_2.append((posy, posx))
-                    verif_pos_2.append((posy, posx-1))
-            elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_2 and ((posy, posx+1)) not in verif_pos_2:
-                if posx < columns-1:
-                    matriz_botones_2[posy][posx].configure(image=rotar_imagen_b2(1, verif))
-                    matriz_botones_2[posy][posx+1].configure(image=rotar_imagen_b2(2, verif))
-                    verif_pos_2.append((posy, posx))
-                    verif_pos_2.append((posy, posx+1))
-            elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_2 and ((posy+1, posx)) not in verif_pos_2:
-                if posy < rows-1:
-                    matriz_botones_2[posy][posx].configure(image=rotar_imagen_b2(1, verif))
-                    matriz_botones_2[posy+1][posx].configure(image=rotar_imagen_b2(2, verif))
-                    verif_pos_2.append((posy, posx))
-                    verif_pos_2.append((posy+1, posx))
-            elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_2 and ((posy-1, posx)) not in verif_pos_2:
-                if posy < rows:
-                    matriz_botones_2[posy][posx].configure(image=rotar_imagen_b2(1, verif))
-                    matriz_botones_2[posy-1][posx].configure(image=rotar_imagen_b2(2, verif))
-                    verif_pos_2.append((posy, posx))
-                    verif_pos_2.append((posy-1, posx))
-    elif config == 3:
-        var = 0
-        for x in imagenes3_2:
-            var+=1
-        if var < 6:
-            if angulo_rotacion == 0 and ((posy, posx)) not in verif_pos_2 and ((posy, posx-1)) not in verif_pos_2 and ((posy, posx-2)) not in verif_pos_2:
-                if posx > 1:
-                    matriz_botones_2[posy][posx].configure(image=rotar_imagen_b3(1, verif))
-                    matriz_botones_2[posy][posx-1].configure(image=rotar_imagen_b3(2, verif))
-                    matriz_botones_2[posy][posx-2].configure(image=rotar_imagen_b3(3, verif))
-                    verif_pos_2.append((posy, posx))
-                    verif_pos_2.append((posy, posx-1))
-                    verif_pos_2.append((posy, posx-2))
-            elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_2 and ((posy, posx+1)) not in verif_pos_2 and ((posy, posx+2)) not in verif_pos_2:
-                if posx < columns-2:
-                    matriz_botones_2[posy][posx].configure(image=rotar_imagen_b3(1, verif))
-                    matriz_botones_2[posy][posx+1].configure(image=rotar_imagen_b3(2, verif))
-                    matriz_botones_2[posy][posx+2].configure(image=rotar_imagen_b3(3, verif))
-                    verif_pos_2.append((posy, posx))
-                    verif_pos_2.append((posy, posx+1))
-                    verif_pos_2.append((posy, posx+2))
-            elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_2 and ((posy+1, posx)) not in verif_pos_2 and ((posy+2, posx)) not in verif_pos_2:
-                if posy < rows-2:
-                    matriz_botones_2[posy][posx].configure(image=rotar_imagen_b3(1, verif))
-                    matriz_botones_2[posy+1][posx].configure(image=rotar_imagen_b3(2, verif))
-                    matriz_botones_2[posy+2][posx].configure(image=rotar_imagen_b3(3, verif))
-                    verif_pos_2.append((posy, posx))
-                    verif_pos_2.append((posy+1, posx))
-                    verif_pos_2.append((posy+2, posx))
-            elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_2 and ((posy-1, posx)) not in verif_pos_2 and ((posy-2, posx)) not in verif_pos_2:
-                if posy > 1:
-                    matriz_botones_2[posy][posx].configure(image=rotar_imagen_b3(1, verif))
-                    matriz_botones_2[posy-1][posx].configure(image=rotar_imagen_b3(2, verif))
-                    matriz_botones_2[posy-2][posx].configure(image=rotar_imagen_b3(3, verif))
-                    verif_pos_2.append((posy, posx))
-                    verif_pos_2.append((posy-1, posx))
-                    verif_pos_2.append((posy-2, posx))
+                if angulo_rotacion == 0 and ((posy, posx)) not in verif_pos_2 and ((posy, posx-1)) not in verif_pos_2 and ((posy, posx-2)) not in verif_pos_2:
+                    if posx > 1:
+                        matriz_botones_2[posy][posx].configure(image=rotar_imagen_b3(1, verif))
+                        matriz_botones_2[posy][posx-1].configure(image=rotar_imagen_b3(2, verif))
+                        matriz_botones_2[posy][posx-2].configure(image=rotar_imagen_b3(3, verif))
+                        verif_pos_2.append((posy, posx))
+                        verif_pos_2.append((posy, posx-1))
+                        verif_pos_2.append((posy, posx-2))
+                        barcos_jugador2.append((3, (posy, posx), angulo_rotacion, (posy, posx-1), (posy, posx-2)))
+
+                elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_2 and ((posy, posx+1)) not in verif_pos_2 and ((posy, posx+2)) not in verif_pos_2:
+                    if posx < columns-2:
+                        matriz_botones_2[posy][posx].configure(image=rotar_imagen_b3(1, verif))
+                        matriz_botones_2[posy][posx+1].configure(image=rotar_imagen_b3(2, verif))
+                        matriz_botones_2[posy][posx+2].configure(image=rotar_imagen_b3(3, verif))
+                        verif_pos_2.append((posy, posx))
+                        verif_pos_2.append((posy, posx+1))
+                        verif_pos_2.append((posy, posx+2))
+                        barcos_jugador2.append((3, (posy, posx), angulo_rotacion, (posy, posx+1), (posy, posx+2)))
+
+                elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_2 and ((posy+1, posx)) not in verif_pos_2 and ((posy+2, posx)) not in verif_pos_2:
+                    if posy < rows-2:
+                        matriz_botones_2[posy][posx].configure(image=rotar_imagen_b3(1, verif))
+                        matriz_botones_2[posy+1][posx].configure(image=rotar_imagen_b3(2, verif))
+                        matriz_botones_2[posy+2][posx].configure(image=rotar_imagen_b3(3, verif))
+                        verif_pos_2.append((posy, posx))
+                        verif_pos_2.append((posy+1, posx))
+                        verif_pos_2.append((posy+2, posx))
+                        barcos_jugador2.append((3, (posy, posx), angulo_rotacion, (posy+1, posx), (posy+2, posx)))
+
+                elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_2 and ((posy-1, posx)) not in verif_pos_2 and ((posy-2, posx)) not in verif_pos_2:
+                    if posy > 1:
+                        matriz_botones_2[posy][posx].configure(image=rotar_imagen_b3(1, verif))
+                        matriz_botones_2[posy-1][posx].configure(image=rotar_imagen_b3(2, verif))
+                        matriz_botones_2[posy-2][posx].configure(image=rotar_imagen_b3(3, verif))
+                        verif_pos_2.append((posy, posx))
+                        verif_pos_2.append((posy-1, posx))
+                        verif_pos_2.append((posy-2, posx))
+                        barcos_jugador2.append((3, (posy, posx), angulo_rotacion, (posy-1, posx), (posy-2, posx)))
 
 def rotar_imagen(verif):
     global imagen, angulo_rotacion
-    imagen_pil1 = Image.open("C:\\Users\\rafao\\Documents\\IIProyecto\\b1.png")
+    imagen_pil1 = Image.open(os.path.join(current_dir, f'b1.png'))
     imagen_rotada1 = imagen_pil1.rotate(angulo_rotacion, expand=True)
     imagen_rotada1 = imagen_rotada1.resize((50, 50))
     global imagen1
@@ -414,7 +458,7 @@ def rotar_imagen(verif):
     return imagen1
 
 def rotar_imagen_b2(num, verif):
-    imagen_pil = Image.open(f"C:\\Users\\rafao\\Documents\\IIProyecto\\b2{num}.png")
+    imagen_pil = Image.open(os.path.join(current_dir, f'b2{num}.png'))
     imagen_rotada = imagen_pil.rotate(angulo_rotacion, expand=True)
     imagen_rotada = imagen_rotada.resize((50, 50))
     global imagen2
@@ -426,7 +470,7 @@ def rotar_imagen_b2(num, verif):
     return imagen2
 
 def rotar_imagen_b3(num, verif):
-    imagen_pil = Image.open(f"C:\\Users\\rafao\\Documents\\IIProyecto\\b3{num}.png")
+    imagen_pil = Image.open(os.path.join(current_dir, f'b3{num}.png'))
     imagen_rotada = imagen_pil.rotate(angulo_rotacion, expand=True)
     imagen_rotada = imagen_rotada.resize((50, 50))
     global imagen3
@@ -447,10 +491,10 @@ def iniciar_juego(x, y, j1, j2):
     ventana.title("Tablero")
 
     global matriz_botones, matriz_botones_2
-    matriz_botones = [[tk.Button(ventana, command=lambda posx=c, posyy=f: extra_barcos(posx, posyy), bg="Blue") for c in range(x // 2)] for f in range(y)]
+    matriz_botones = [[tk.Button(ventana, command=lambda posx=c, posy=f: extra_barcos(posx, posy), bg="Blue") for c in range(x // 2)] for f in range(y)]
 
     # Crear una segunda matriz de botones
-    matriz_botones_2 = [[tk.Button(ventana, command=lambda posx=c, posyy=f: extra_barcos_2(posx, posyy), bg="Blue") for c in range(x - x // 2)] for f in range(y)]
+    matriz_botones_2 = [[tk.Button(ventana, command=lambda posx=c, posy=f: extra_barcos_2(posx, posy), bg="Blue") for c in range(x - x // 2)] for f in range(y)]
 
     # Calcular las posiciones x e y para centrar las matrices
     ancho_ventana = ventana.winfo_screenwidth()
@@ -515,6 +559,77 @@ def iniciar_juego(x, y, j1, j2):
     label_y = posy_matriz1-50  # Adjust the value as needed
     Jug2.place(x=label_x, y=label_y)
 
+    nj = tk.Button(ventana)
+    nj.place(x=x*25+200, y=y*50+110)
+    nj.configure(text="Siguiente Jugador", command=lambda: next_pj())
+
+def next_pj():
+    global nj
+    if nj == True:
+        for fila in matriz_botones_2:
+            for boton in fila:
+                for i in imagenes1_2:
+                    if boton["image"] == str(i):
+                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
+                for i in imagenes2_2:
+                    if boton["image"] == str(i):
+                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
+                for i in imagenes3_2:
+                    if boton["image"] == str(i):
+                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
+        restaurar_barcos_1()
+        nj = False
+    elif nj == False:
+        for fila in matriz_botones:
+            for boton in fila:
+                for i in imagenes1_1:
+                    if boton["image"] == str(i):
+                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
+                for i in imagenes2_1:
+                    if boton["image"] == str(i):
+                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
+                for i in imagenes3_1:
+                    if boton["image"] == str(i):
+                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
+        restaurar_barcos_2()
+        nj = True
+
+def restaurar_barcos_1():
+    for tipo, posicion1, rotacion, posicion2, posicion3 in barcos_jugador1:
+        t = tipo
+        fila1, columna1 = posicion1
+        fila2, columna2 = posicion2
+        fila3, columna3 = posicion3
+        global angulo_rotacion
+        angulo_rotacion = rotacion
+        if t == 3:
+            matriz_botones[fila1][columna1].configure(image=rotar_imagen_b3(1, 1))
+            matriz_botones[fila2][columna2].configure(image=rotar_imagen_b3(2, 1))
+            matriz_botones[fila3][columna3].configure(image=rotar_imagen_b3(3, 1))
+        if t == 2:
+            matriz_botones[fila1][columna1].configure(image=rotar_imagen_b2(1, 1))
+            matriz_botones[fila2][columna2].configure(image=rotar_imagen_b2(2, 1))
+        if t == 1:
+            matriz_botones[fila1][columna1].configure(image=rotar_imagen(1))
+
+def restaurar_barcos_2():
+    for tipo, posicion1, rotacion, posicion2, posicion3 in barcos_jugador2:
+        t = tipo
+        fila1, columna1 = posicion1
+        fila2, columna2 = posicion2
+        fila3, columna3 = posicion3
+        global angulo_rotacion
+        angulo_rotacion = rotacion
+        if t == 3:
+            matriz_botones_2[fila1][columna1].configure(image=rotar_imagen_b3(1, 2))
+            matriz_botones_2[fila2][columna2].configure(image=rotar_imagen_b3(2, 2))
+            matriz_botones_2[fila3][columna3].configure(image=rotar_imagen_b3(3, 2))
+        if t == 2:
+            matriz_botones_2[fila1][columna1].configure(image=rotar_imagen_b2(1, 2))
+            matriz_botones_2[fila2][columna2].configure(image=rotar_imagen_b2(2, 2))
+        if t == 1:
+            matriz_botones_2[fila1][columna1].configure(image=rotar_imagen(2))
+
 def restart(x, y, j1, j2):
     iniciar_juego(x, y, j1, j2)
     verif_pos_1.clear()
@@ -525,6 +640,8 @@ def restart(x, y, j1, j2):
     imagenes2_2.clear()
     imagenes3_1.clear()
     imagenes3_2.clear()
+    barcos_jugador1.clear()
+    barcos_jugador2.clear()
 
 def rotar_barco_i():
     global angulo_rotacion
@@ -600,3 +717,6 @@ def pantalla_inicio() -> tk.Tk:
     ventana.mainloop()
 
 pantalla_inicio()
+
+#2k = 40x25
+#FHD = 36x17
