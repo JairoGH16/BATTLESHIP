@@ -265,7 +265,7 @@ def extra_barcos(posx, posy):
                     if ((posy, posx)) not in verif_pos_1:
                         matriz_botones[posy][posx].configure(image=rotar_imagen(verif))
                         verif_pos_1.append((posy, posx))
-                        barcos_jugador1.append((1, (posy, posx), angulo_rotacion, (posy, posx), (posy, posx)))
+                        barcos_jugador1.append([1, [posy, posx], angulo_rotacion, [posy, posx], [posy, posx]])
         elif config == 2:
             var = 0
             for x in imagenes2_1:
@@ -577,6 +577,7 @@ def next_pj():
                 for i in imagenes3_2:
                     if boton["image"] == str(i):
                         boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
+        mover_barcos_1()
         restaurar_barcos_1()
         nj = False
     elif nj == False:
@@ -662,6 +663,25 @@ def rotar_barco_b():
     global angulo_rotacion
     angulo_rotacion = 270
     return angulo_rotacion
+
+def mover_barcos_1():
+    for p in barcos_jugador1:
+        tipo, pos1, ang, pos2, pos3 = p
+        posy1, posx1 = pos1
+        posy2, posx1 = pos2
+        posy3, posx3 = pos3
+        if tipo == 1:
+            if ang == 0:
+                if ((posy1, posx1+2)) not in verif_pos_1:
+                    p[1] = [posy1, posx1+2]
+                    p[3] = [posy1, posx1+2]
+                    p[4] = [posy1, posx1+2]
+                else:
+                    if ((posy1, posx1+1)) not in verif_pos_1:
+                        p[1] = [posy1, posx1+1]
+                        p[3] = [posy1, posx1+1]
+                        p[4] = [posy1, posx1+1]
+
 
 def iniciar__juego(c,f,j1,j2):
     if int(c.get()) >= 20 and int(f.get()) >= 10:
