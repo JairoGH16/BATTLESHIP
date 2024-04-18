@@ -19,8 +19,9 @@ def insertar(pieza:str,direccion:str,pos_x:int,pos_y:int):
         pos_x (int): posición x de la pieza.
         pos_y (int): posición y de la pieza.
     """
-    mar[pos_y][pos_x]["pieza"]=pieza
-    mar[pos_y][pos_x]["direccion"]=direccion
+    if mar[pos_y][pos_x]==".":
+        mar[pos_y][pos_x]["pieza"]=pieza
+        mar[pos_y][pos_x]["direccion"]=direccion
 
 def mover_izquierda(columna:dict,pos_x:int,pos_y:int):
     """mover_izquierda mueve las piezas hacia la izquierda, un paso para todos los barcos, a excepción de los destructores que se mueven
