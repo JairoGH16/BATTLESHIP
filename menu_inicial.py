@@ -277,7 +277,7 @@ def extra_barcos(posx, posy):
                         matriz_botones[posy][posx-1].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy, posx-1))
-                        barcos_jugador1.append((2, (posy, posx), angulo_rotacion, (posy, posx-1), (posy, posx)))
+                        barcos_jugador1.append([2, [posy, posx], angulo_rotacion, [posy, posx-1], [posy, posx]])
 
                 elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_1 and ((posy, posx+1)) not in verif_pos_1:
                     if posx < columns-1:
@@ -285,7 +285,7 @@ def extra_barcos(posx, posy):
                         matriz_botones[posy][posx+1].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy, posx+1))
-                        barcos_jugador1.append((2, (posy, posx), angulo_rotacion, (posy, posx+1), (posy, posx)))
+                        barcos_jugador1.append([2, [posy, posx], angulo_rotacion, [posy, posx+1], [posy, posx]])
 
                 elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_1 and ((posy+1, posx)) not in verif_pos_1:
                     if posy < rows-1:
@@ -293,7 +293,7 @@ def extra_barcos(posx, posy):
                         matriz_botones[posy+1][posx].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy+1, posx))
-                        barcos_jugador1.append((2, (posy, posx), angulo_rotacion, (posy+1, posx), (posy, posx)))
+                        barcos_jugador1.append([2, [posy, posx], angulo_rotacion, [posy+1, posx], [posy, posx]])
 
                 elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_1 and ((posy-1, posx)) not in verif_pos_1:
                     if posy < rows:
@@ -301,7 +301,7 @@ def extra_barcos(posx, posy):
                         matriz_botones[posy-1][posx].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy-1, posx))
-                        barcos_jugador1.append((2, (posy, posx), angulo_rotacion, (posy-1, posx), (posy, posx)))
+                        barcos_jugador1.append([2, [posy, posx], angulo_rotacion, [posy-1, posx], [posy, posx]])
 
         elif config == 3:
             var = 0
@@ -607,8 +607,9 @@ def restaurar_barcos_1():
             matriz_botones[fila2][columna2].configure(image=rotar_imagen_b3(2, 1))
             matriz_botones[fila3][columna3].configure(image=rotar_imagen_b3(3, 1))
         if t == 2:
-            matriz_botones[fila1][columna1].configure(image=rotar_imagen_b2(1, 1))
-            matriz_botones[fila2][columna2].configure(image=rotar_imagen_b2(2, 1))
+            if limite == False:
+                matriz_botones[fila1][columna1].configure(image=rotar_imagen_b2(1, 1))
+                matriz_botones[fila2][columna2].configure(image=rotar_imagen_b2(2, 1))
         if t == 1:
             if limite == False:
                 matriz_botones[fila1][columna1].configure(image=rotar_imagen(1))
@@ -671,7 +672,7 @@ def mover_barcos_1():
     for p in barcos_jugador1:
         tipo, pos1, ang, pos2, pos3 = p
         posy1, posx1 = pos1
-        posy2, posx1 = pos2
+        posy2, posx2 = pos2
         posy3, posx3 = pos3
         if tipo == 1:
             if ang == 0:
@@ -742,6 +743,64 @@ def mover_barcos_1():
                     p[2] = 90
                     angulo_rotacion = 90
                     matriz_botones[posy1][posx1].configure(image=rotar_imagen(1))
+                    p[1], p[3] = p[3], p[1]
+        if tipo == 2:
+            if ang == 0:
+                if posx1 != ult_posx-1:
+                    limite = False
+                if ((posy1, posx1+1)) not in verif_pos_1 and posx1 < ult_posx:
+                    p[1] = [posy1, posx1+1]
+                    p[3] = [posy1, posx2+1]
+                    p[4] = [posy1, posx1+1]
+                if posx1 == ult_posx-1:
+                    limite = True
+                    p[2] = 180
+                    angulo_rotacion = 180
+                    matriz_botones[posy1][posx2].configure(image=rotar_imagen_b2(1, 1))
+                    matriz_botones[posy1][posx1].configure(image=rotar_imagen_b2(2, 1))
+                    p[1] = [posy1, posx2]
+                    p[3] = [posy1, posx1]
+            if ang == 180:
+                if posx1 !=0:
+                    limite = False
+                if ((posy1, posx1-1)) not in verif_pos_1 and posx1 > 0:
+                    p[1] = [posy1, posx1-1]
+                    p[3] = [posy1, posx2-1]
+                    p[4] = [posy1, posx1-1]
+                if posx1 == 0:
+                    limite = True
+                    p[2] = 0
+                    angulo_rotacion = 0
+                    matriz_botones[posy1][posx2].configure(image=rotar_imagen_b2(1, 1))
+                    matriz_botones[posy1][posx1].configure(image=rotar_imagen_b2(2, 1))
+                    p[1] = [posy1, posx2]
+                    p[3] = [posy1, posx1]
+            if ang == 90:
+                if posy1 != 0:
+                    limite = False
+                elif ((posy1-1, posx1)) not in verif_pos_1 and posy1 > 0:
+                    p[1] = [posy1-1, posx1]
+                    p[3] = [posy2-1, posx1]
+                    p[4] = [posy1-1, posx1]
+                if posy1 == 0:
+                    limite = True
+                    p[2] = 270
+                    angulo_rotacion = 270
+                    matriz_botones[posy1][posx1].configure(image=rotar_imagen_b2(1, 1))
+                    matriz_botones[posy1][posx2].configure(image=rotar_imagen_b2(2, 1))
+            if ang == 270:
+                if posy1 != ult_posy-1:
+                    limite = False
+                elif ((posy1+1, posx1)) not in verif_pos_1 and posy1 < ult_posy-1:
+                    p[1] = [posy1+1, posx1]
+                    p[3] = [posy2+1, posx1]
+                    p[4] = [posy1+1, posx1]
+                if posy1 == ult_posy-1:
+                    limite = True
+                    p[2] = 90
+                    angulo_rotacion = 90
+                    matriz_botones[posy1][posx1].configure(image=rotar_imagen_b2(1, 1))
+                    matriz_botones[posy1][posx2].configure(image=rotar_imagen_b2(2, 1))
 
 def iniciar__juego(c,f,j1,j2):
     if int(c.get()) >= 20 and int(f.get()) >= 10:
