@@ -14,8 +14,6 @@ imagenes3_1 = []
 imagenes3_2 = []
 verif_pos_1 = []
 verif_pos_2 = []
-barcos_jugador1 = []
-barcos_jugador2 = []
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def cambiar_config(num:int):
@@ -266,7 +264,6 @@ def extra_barcos(posx, posy):
                     if ((posy, posx)) not in verif_pos_1:
                         matriz_botones[posy][posx].configure(image=rotar_imagen(verif))
                         verif_pos_1.append((posy, posx))
-                        barcos_jugador1.append([1, [posy, posx], angulo_rotacion, [posy, posx], [posy, posx]])
                         if angulo_rotacion == 0:
                             direccion = "derecha"
                         elif angulo_rotacion == 180:
@@ -276,6 +273,7 @@ def extra_barcos(posx, posy):
                         elif angulo_rotacion == 270:
                             direccion = "abajo"
                         mov.insertar("A",direccion,posx,posy)
+
         elif config == 2:
             var = 0
             for x in imagenes2_1:
@@ -287,7 +285,8 @@ def extra_barcos(posx, posy):
                         matriz_botones[posy][posx-1].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy, posx-1))
-                        barcos_jugador1.append([2, [posy, posx], angulo_rotacion, [posy, posx-1], [posy, posx]])
+                        mov.insertar("B1","derecha",posx,posy)
+                        mov.insertar("B2","derecha",posx-1,posy)
 
                 elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_1 and ((posy, posx+1)) not in verif_pos_1:
                     if posx < columns-1:
@@ -295,7 +294,8 @@ def extra_barcos(posx, posy):
                         matriz_botones[posy][posx+1].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy, posx+1))
-                        barcos_jugador1.append([2, [posy, posx], angulo_rotacion, [posy, posx+1], [posy, posx]])
+                        mov.insertar("B1","izquierda",posx+1,posy)
+                        mov.insertar("B2","izquierda",posx,posy)
 
                 elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_1 and ((posy+1, posx)) not in verif_pos_1:
                     if posy < rows-1:
@@ -303,7 +303,8 @@ def extra_barcos(posx, posy):
                         matriz_botones[posy+1][posx].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy+1, posx))
-                        barcos_jugador1.append([2, [posy, posx], angulo_rotacion, [posy+1, posx], [posy, posx]])
+                        mov.insertar("B1","arriba",posx,posy)
+                        mov.insertar("B2","arriba",posx,posy+1)
 
                 elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_1 and ((posy-1, posx)) not in verif_pos_1:
                     if posy < rows:
@@ -311,7 +312,8 @@ def extra_barcos(posx, posy):
                         matriz_botones[posy-1][posx].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy-1, posx))
-                        barcos_jugador1.append([2, [posy, posx], angulo_rotacion, [posy-1, posx], [posy, posx]])
+                        mov.insertar("B1","abajo",posx,posy-1)
+                        mov.insertar("B2","abajo",posx,posy)
 
         elif config == 3:
             var = 0
@@ -326,7 +328,9 @@ def extra_barcos(posx, posy):
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy, posx-1))
                         verif_pos_1.append((posy, posx-2))
-                        barcos_jugador1.append((3, (posy, posx), angulo_rotacion, (posy, posx-1), (posy, posx-2)))
+                        mov.insertar("C1","derecha",posx,posy)
+                        mov.insertar("C2","derecha",posx-1,posy)
+                        mov.insertar("C3","derecha",posx-2,posy)
 
                 elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_1 and ((posy, posx+1)) not in verif_pos_1 and ((posy, posx+2)) not in verif_pos_1:
                     if posx < columns-2:
@@ -336,7 +340,9 @@ def extra_barcos(posx, posy):
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy, posx+1))
                         verif_pos_1.append((posy, posx+2))
-                        barcos_jugador1.append((3, (posy, posx), angulo_rotacion, (posy, posx+1), (posy, posx+2)))
+                        mov.insertar("C1","izquierda",posx+2,posy)
+                        mov.insertar("C2","izquierda",posx+1,posy)
+                        mov.insertar("C3","izquierda",posx,posy)
 
                 elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_1 and ((posy+1, posx)) not in verif_pos_1 and ((posy+2, posx)) not in verif_pos_1:
                     if posy < rows-2:
@@ -346,7 +352,9 @@ def extra_barcos(posx, posy):
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy+1, posx))
                         verif_pos_1.append((posy+2, posx))
-                        barcos_jugador1.append((3, (posy, posx), angulo_rotacion, (posy+1, posx), (posy+2, posx)))
+                        mov.insertar("C1","arriba",posx,posy)
+                        mov.insertar("C2","arriba",posx,posy+1)
+                        mov.insertar("C3","arriba",posx,posy+2)
 
                 elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_1 and ((posy-1, posx)) not in verif_pos_1 and ((posy-2, posx)) not in verif_pos_1:
                     if posy > 1:
@@ -356,7 +364,9 @@ def extra_barcos(posx, posy):
                         verif_pos_1.append((posy, posx))
                         verif_pos_1.append((posy-1, posx))
                         verif_pos_1.append((posy-2, posx))
-                        barcos_jugador1.append((3, (posy, posx), angulo_rotacion, (posy-1, posx), (posy-2, posx)))
+                        mov.insertar("C1","abajo",posx,posy-2)
+                        mov.insertar("C2","abajo",posx,posy-1)
+                        mov.insertar("C3","abajo",posx,posy)
 
 def extra_barcos_2(posx, posy):
     global verif
@@ -370,7 +380,6 @@ def extra_barcos_2(posx, posy):
                     if ((posy, posx)) not in verif_pos_2:
                         matriz_botones_2[posy][posx].configure(image=rotar_imagen(verif))
                         verif_pos_2.append((posy, posx))
-                        barcos_jugador2.append((1, (posy, posx), angulo_rotacion, (posy, posx), (posy, posx)))
 
         elif config == 2:
             var = 0
@@ -383,7 +392,6 @@ def extra_barcos_2(posx, posy):
                         matriz_botones_2[posy][posx-1].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_2.append((posy, posx))
                         verif_pos_2.append((posy, posx-1))
-                        barcos_jugador2.append((2, (posy, posx), angulo_rotacion, (posy, posx-1), (posy, posx)))
 
                 elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_2 and ((posy, posx+1)) not in verif_pos_2:
                     if posx < columns-1:
@@ -391,7 +399,6 @@ def extra_barcos_2(posx, posy):
                         matriz_botones_2[posy][posx+1].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_2.append((posy, posx))
                         verif_pos_2.append((posy, posx+1))
-                        barcos_jugador2.append((2, (posy, posx), angulo_rotacion, (posy, posx+1), (posy, posx)))
                         
                 elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_2 and ((posy+1, posx)) not in verif_pos_2:
                     if posy < rows-1:
@@ -399,7 +406,6 @@ def extra_barcos_2(posx, posy):
                         matriz_botones_2[posy+1][posx].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_2.append((posy, posx))
                         verif_pos_2.append((posy+1, posx))
-                        barcos_jugador2.append((2, (posy, posx), angulo_rotacion, (posy+1, posx), (posy, posx)))
 
                 elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_2 and ((posy-1, posx)) not in verif_pos_2:
                     if posy < rows:
@@ -407,7 +413,6 @@ def extra_barcos_2(posx, posy):
                         matriz_botones_2[posy-1][posx].configure(image=rotar_imagen_b2(2, verif))
                         verif_pos_2.append((posy, posx))
                         verif_pos_2.append((posy-1, posx))
-                        barcos_jugador2.append((2, (posy, posx), angulo_rotacion, (posy-1, posx), (posy, posx)))
 
         elif config == 3:
             var = 0
@@ -422,7 +427,6 @@ def extra_barcos_2(posx, posy):
                         verif_pos_2.append((posy, posx))
                         verif_pos_2.append((posy, posx-1))
                         verif_pos_2.append((posy, posx-2))
-                        barcos_jugador2.append((3, (posy, posx), angulo_rotacion, (posy, posx-1), (posy, posx-2)))
 
                 elif angulo_rotacion == 180 and ((posy, posx)) not in verif_pos_2 and ((posy, posx+1)) not in verif_pos_2 and ((posy, posx+2)) not in verif_pos_2:
                     if posx < columns-2:
@@ -432,7 +436,6 @@ def extra_barcos_2(posx, posy):
                         verif_pos_2.append((posy, posx))
                         verif_pos_2.append((posy, posx+1))
                         verif_pos_2.append((posy, posx+2))
-                        barcos_jugador2.append((3, (posy, posx), angulo_rotacion, (posy, posx+1), (posy, posx+2)))
 
                 elif angulo_rotacion == 90 and ((posy, posx)) not in verif_pos_2 and ((posy+1, posx)) not in verif_pos_2 and ((posy+2, posx)) not in verif_pos_2:
                     if posy < rows-2:
@@ -442,7 +445,6 @@ def extra_barcos_2(posx, posy):
                         verif_pos_2.append((posy, posx))
                         verif_pos_2.append((posy+1, posx))
                         verif_pos_2.append((posy+2, posx))
-                        barcos_jugador2.append((3, (posy, posx), angulo_rotacion, (posy+1, posx), (posy+2, posx)))
 
                 elif angulo_rotacion == 270 and ((posy, posx)) not in verif_pos_2 and ((posy-1, posx)) not in verif_pos_2 and ((posy-2, posx)) not in verif_pos_2:
                     if posy > 1:
@@ -452,10 +454,9 @@ def extra_barcos_2(posx, posy):
                         verif_pos_2.append((posy, posx))
                         verif_pos_2.append((posy-1, posx))
                         verif_pos_2.append((posy-2, posx))
-                        barcos_jugador2.append((3, (posy, posx), angulo_rotacion, (posy-1, posx), (posy-2, posx)))
 
 def rotar_imagen(verif):
-    global imagen, angulo_rotacion
+    global imagen
     imagen_pil1 = Image.open(os.path.join(current_dir, f'b1.png'))
     imagen_rotada1 = imagen_pil1.rotate(angulo_rotacion, expand=True)
     imagen_rotada1 = imagen_rotada1.resize((50, 50))
@@ -573,34 +574,57 @@ def iniciar_juego(x, y, j1, j2):
     nj.configure(text="Siguiente Jugador", command=lambda: next_pj())
 
 def next_pj():
-    global nj
+    global nj, angulo_rotacion
     if nj == True:
-        for fila in matriz_botones_2:
-            for boton in fila:
-                for i in imagenes1_2:
-                    if boton["image"] == str(i):
-                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
-                for i in imagenes2_2:
-                    if boton["image"] == str(i):
-                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
-                for i in imagenes3_2:
-                    if boton["image"] == str(i):
-                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
         nj = False
     elif nj == False:
-        for fila in matriz_botones:
-            for boton in fila:
-                for i in imagenes1_2:
-                    if boton["image"] == str(i):
-                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
-                for i in imagenes2_1:
-                    if boton["image"] == str(i):
-                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
-                for i in imagenes3_1:
-                    if boton["image"] == str(i):
-                        boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
         mov.mover_barcos()
         mov.imprimir_mar()
+        posy = 0
+        for fila in mov.mar:
+            posx = 0
+            for boton in fila:
+                matriz_botones[posy][posx].configure(image="")
+                if boton["direccion"] == "arriba":
+                    angulo_rotacion = 90
+                elif boton["direccion"] == "abajo":
+                    angulo_rotacion = 270
+                elif boton["direccion"] == "derecha":
+                    angulo_rotacion = 0
+                elif boton["direccion"] == "izquierda":
+                    angulo_rotacion = 180
+                if boton["pieza"] == "A":
+                    matriz_botones[posy][posx].configure(image=rotar_imagen(1))
+                if boton["pieza"] == "B1" and boton["direccion"] == "derecha":
+                    matriz_botones[posy][posx].configure(image=rotar_imagen_b2(1,1))
+                    matriz_botones[posy][posx-1].configure(image=rotar_imagen_b2(2,1))
+                if boton["pieza"] == "B1" and boton["direccion"] == "izquierda":
+                    matriz_botones[posy][posx].configure(image=rotar_imagen_b2(2,1))
+                    matriz_botones[posy][posx-1].configure(image=rotar_imagen_b2(1,1))
+                if boton["pieza"] == "B2" and boton["direccion"] == "arriba":
+                    matriz_botones[posy-1][posx].configure(image=rotar_imagen_b2(1,1))
+                    matriz_botones[posy][posx].configure(image=rotar_imagen_b2(2,1))
+                if boton["pieza"] == "B2" and boton["direccion"] == "abajo":
+                    matriz_botones[posy-1][posx].configure(image=rotar_imagen_b2(2,1))
+                    matriz_botones[posy][posx].configure(image=rotar_imagen_b2(1,1))
+                if boton["pieza"] == "C1" and boton["direccion"] == "derecha":
+                    matriz_botones[posy][posx].configure(image=rotar_imagen_b3(1,1))
+                    matriz_botones[posy][posx-1].configure(image=rotar_imagen_b3(2,1))
+                    matriz_botones[posy][posx-2].configure(image=rotar_imagen_b3(3,1))
+                if boton["pieza"] == "C1" and boton["direccion"] == "izquierda":
+                    matriz_botones[posy][posx].configure(image=rotar_imagen_b3(3,1))
+                    matriz_botones[posy][posx-1].configure(image=rotar_imagen_b3(2,1))
+                    matriz_botones[posy][posx-2].configure(image=rotar_imagen_b3(1,1))
+                if boton["pieza"] == "C3" and boton["direccion"] == "arriba":
+                    matriz_botones[posy-2][posx].configure(image=rotar_imagen_b3(1,1))
+                    matriz_botones[posy-1][posx].configure(image=rotar_imagen_b3(2,1))
+                    matriz_botones[posy][posx].configure(image=rotar_imagen_b3(3,1))
+                if boton["pieza"] == "C3" and boton["direccion"] == "abajo":
+                    matriz_botones[posy][posx].configure(image=rotar_imagen_b3(1,1))
+                    matriz_botones[posy-1][posx].configure(image=rotar_imagen_b3(2,1))
+                    matriz_botones[posy-2][posx].configure(image=rotar_imagen_b3(3,1))
+                posx += 1
+            posy += 1
         nj = True
 
 def restart(x, y, j1, j2):
@@ -613,8 +637,7 @@ def restart(x, y, j1, j2):
     imagenes2_2.clear()
     imagenes3_1.clear()
     imagenes3_2.clear()
-    barcos_jugador1.clear()
-    barcos_jugador2.clear()
+
 
 def rotar_barco_i():
     global angulo_rotacion

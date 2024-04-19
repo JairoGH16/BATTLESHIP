@@ -1,4 +1,4 @@
-mar=[[{"direccion":"","pieza":"."} for y in range(5)]for x in range(5)]
+mar=[[{"direccion":"","pieza":"."} for y in range(10)]for x in range(20)]
 
 def imprimir_mar():
     """imprimir_mar imprime la matriz correspondiente al mar para hacer pruebas en la terminal.
@@ -19,8 +19,9 @@ def insertar(pieza:str,direccion:str,pos_x:int,pos_y:int):
         pos_x (int): posición x de la pieza.
         pos_y (int): posición y de la pieza.
     """
-    mar[pos_y][pos_x]["pieza"]=pieza
-    mar[pos_y][pos_x]["direccion"]=direccion
+    if mar[pos_y][pos_x]["pieza"]==".":
+        mar[pos_y][pos_x]["pieza"]=pieza
+        mar[pos_y][pos_x]["direccion"]=direccion
 
 def mover_izquierda(columna:dict,pos_x:int,pos_y:int):
     """mover_izquierda mueve las piezas hacia la izquierda, un paso para todos los barcos, a excepción de los destructores que se mueven
@@ -121,7 +122,7 @@ def mover_barcos():
     #hacia abajo y derecha
     pos_y=len(mar)-1
     for fila in mar[::-1]:
-        pos_x=len(mar)-1
+        pos_x=len(mar[0])-1
         for columna in fila[::-1]:
             if columna["direccion"]=="abajo":
                 mover_abajo(columna,pos_x,pos_y)
