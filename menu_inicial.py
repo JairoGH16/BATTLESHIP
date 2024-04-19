@@ -1,6 +1,7 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 import os
+import movimiento as mov
 
 angulo_rotacion = 0
 config = 1
@@ -266,6 +267,15 @@ def extra_barcos(posx, posy):
                         matriz_botones[posy][posx].configure(image=rotar_imagen(verif))
                         verif_pos_1.append((posy, posx))
                         barcos_jugador1.append([1, [posy, posx], angulo_rotacion, [posy, posx], [posy, posx]])
+                        if angulo_rotacion == 0:
+                            direccion = "derecha"
+                        elif angulo_rotacion == 180:
+                            direccion = "izquierda"
+                        elif angulo_rotacion == 90:
+                            direccion = "arriba"
+                        elif angulo_rotacion == 270:
+                            direccion = "abajo"
+                        mov.insertar("A",direccion,posx,posy)
         elif config == 2:
             var = 0
             for x in imagenes2_1:
@@ -580,7 +590,7 @@ def next_pj():
     elif nj == False:
         for fila in matriz_botones:
             for boton in fila:
-                for i in imagenes1_1:
+                for i in imagenes1_2:
                     if boton["image"] == str(i):
                         boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
                 for i in imagenes2_1:
@@ -589,6 +599,8 @@ def next_pj():
                 for i in imagenes3_1:
                     if boton["image"] == str(i):
                         boton.configure(image=ImageTk.PhotoImage(Image.open(os.path.join(current_dir, f'b11.png'))))
+        mov.mover_barcos()
+        mov.imprimir_mar()
         nj = True
 
 def restart(x, y, j1, j2):
