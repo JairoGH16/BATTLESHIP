@@ -192,28 +192,28 @@ def ocultar_imagen(event):
         for f in range(len(matriz_botones)):
             for c in range(len(matriz_botones[f])):
                 if matriz_botones[f][c] == boton:
-                    boton.configure(bg="Blue")
+                    boton.configure(bg="#7EC0EE")
                     if config == 2 and im.angulo_rotacion == 0:
                         if c > 0:
-                            matriz_botones[f][c-1].configure(bg="Blue")
+                            matriz_botones[f][c-1].configure(bg="#7EC0EE")
                     elif config == 2 and im.angulo_rotacion == 270:
-                        matriz_botones[f-1][c].configure(bg="Blue")
+                        matriz_botones[f-1][c].configure(bg="#7EC0EE")
                     elif config == 2 and im.angulo_rotacion == 180:
-                        matriz_botones[f][c+1].configure(bg="Blue")
+                        matriz_botones[f][c+1].configure(bg="#7EC0EE")
                     elif config == 2 and im.angulo_rotacion == 90:
-                        matriz_botones[f+1][c].configure(bg="Blue")
+                        matriz_botones[f+1][c].configure(bg="#7EC0EE")
                     if config == 3 and im.angulo_rotacion == 0:
-                        matriz_botones[f][c-1].configure(bg="Blue")
-                        matriz_botones[f][c-2].configure(bg="Blue")
+                        matriz_botones[f][c-1].configure(bg="#7EC0EE")
+                        matriz_botones[f][c-2].configure(bg="#7EC0EE")
                     elif config == 3 and im.angulo_rotacion == 270:
-                        matriz_botones[f-1][c].configure(bg="Blue")
-                        matriz_botones[f-2][c].configure(bg="Blue")
+                        matriz_botones[f-1][c].configure(bg="#7EC0EE")
+                        matriz_botones[f-2][c].configure(bg="#7EC0EE")
                     elif config == 3 and im.angulo_rotacion == 180:
-                        matriz_botones[f][c+1].configure(bg="Blue")
-                        matriz_botones[f][c+2].configure(bg="Blue")
+                        matriz_botones[f][c+1].configure(bg="#7EC0EE")
+                        matriz_botones[f][c+2].configure(bg="#7EC0EE")
                     elif config == 3 and im.angulo_rotacion == 90:
-                        matriz_botones[f+1][c].configure(bg="Blue")
-                        matriz_botones[f+2][c].configure(bg="Blue")
+                        matriz_botones[f+1][c].configure(bg="#7EC0EE")
+                        matriz_botones[f+2][c].configure(bg="#7EC0EE")
                     break
 
 def ocultar_imagen_2(event):
@@ -222,28 +222,28 @@ def ocultar_imagen_2(event):
         for f in range(len(matriz_botones_2)):
             for c in range(len(matriz_botones_2[f])):
                 if matriz_botones_2[f][c] == boton:
-                    boton.configure(bg="Blue")
+                    boton.configure(bg="#7EC0EE")
                     if config == 2 and im.angulo_rotacion == 0:
                         if c > 0:
-                            matriz_botones_2[f][c-1].configure(bg="Blue")
+                            matriz_botones_2[f][c-1].configure(bg="#7EC0EE")
                     elif config == 2 and im.angulo_rotacion == 270:
-                        matriz_botones_2[f-1][c].configure(bg="Blue")
+                        matriz_botones_2[f-1][c].configure(bg="#7EC0EE")
                     elif config == 2 and im.angulo_rotacion == 180:
-                        matriz_botones_2[f][c+1].configure(bg="Blue")
+                        matriz_botones_2[f][c+1].configure(bg="#7EC0EE")
                     elif config == 2 and im.angulo_rotacion == 90:
-                        matriz_botones_2[f+1][c].configure(bg="Blue")
+                        matriz_botones_2[f+1][c].configure(bg="#7EC0EE")
                     if config == 3 and im.angulo_rotacion == 0:
-                        matriz_botones_2[f][c-1].configure(bg="Blue")
-                        matriz_botones_2[f][c-2].configure(bg="Blue")
+                        matriz_botones_2[f][c-1].configure(bg="#7EC0EE")
+                        matriz_botones_2[f][c-2].configure(bg="#7EC0EE")
                     elif config == 3 and im.angulo_rotacion == 270:
-                        matriz_botones_2[f-1][c].configure(bg="Blue")
-                        matriz_botones_2[f-2][c].configure(bg="Blue")
+                        matriz_botones_2[f-1][c].configure(bg="#7EC0EE")
+                        matriz_botones_2[f-2][c].configure(bg="#7EC0EE")
                     elif config == 3 and im.angulo_rotacion == 180:
-                        matriz_botones_2[f][c+1].configure(bg="Blue")
-                        matriz_botones_2[f][c+2].configure(bg="Blue")
+                        matriz_botones_2[f][c+1].configure(bg="#7EC0EE")
+                        matriz_botones_2[f][c+2].configure(bg="#7EC0EE")
                     elif config == 3 and im.angulo_rotacion == 90:
-                        matriz_botones_2[f+1][c].configure(bg="Blue")
-                        matriz_botones_2[f+2][c].configure(bg="Blue")
+                        matriz_botones_2[f+1][c].configure(bg="#7EC0EE")
+                        matriz_botones_2[f+2][c].configure(bg="#7EC0EE")
                     break
 
 #################################
@@ -264,10 +264,10 @@ def iniciar_juego(x, y, j1, j2):
     ventana.title("Tablero")
 
     global matriz_botones, matriz_botones_2
-    matriz_botones = [[tk.Button(ventana, command=lambda posx=c, posy=f: insert.insertar_barcos(posx,posy,config,columns,rows,matriz_botones,mar1), bg="Blue") for c in range(x // 2)] for f in range(y)]
+    matriz_botones = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: insert.insertar_barcos(posx,posy,config,columns,rows,matriz_botones,mar1)) for c in range(x // 2)] for f in range(y)]
 
     # Crear una segunda matriz de botones
-    matriz_botones_2 = [[tk.Button(ventana, command=lambda posx=c, posy=f: insert.insertar_barcos(posx, posy,config,columns,rows,matriz_botones_2,mar2), bg="Blue") for c in range(x - x // 2)] for f in range(y)]
+    matriz_botones_2 = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: insert.insertar_barcos(posx, posy,config,columns,rows,matriz_botones_2,mar2)) for c in range(x - x // 2)] for f in range(y)]
 
     # Calcular las posiciones x e y para centrar las matrices
     ancho_ventana = ventana.winfo_screenwidth()

@@ -2,6 +2,7 @@ import logica.movimiento as mov
 import turnos as tur
 import rotar_imagenes as rot
 import var_imagenes as im
+import winsound
 
 def insertar_piezas(pieza:str,direccion:str,pos_x:int,pos_y:int,mar):
     """insertar es una función que permite insertar una pieza de un barco en las matrices donde funciona la lógica del movimiento.
