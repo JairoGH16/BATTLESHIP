@@ -1,0 +1,9 @@
+angulo_rotacion = 0
+imagenes1_1 = []
+imagenes1_2 = []
+imagenes2_1 = []
+imagenes2_2 = []
+imagenes3_1 = []
+imagenes3_2 = []
+verif_pos_1 = []
+verif_pos_2 = []
