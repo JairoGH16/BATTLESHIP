@@ -7,7 +7,7 @@ nj = False
 fnl = False
 fase_barcos_1 = True
 fase_barcos_2 = True
-
+turno=1
 def next_pj(matriz1,matriz2,mar1,mar2):
     global mi, nj, fnl, fase_barcos_1, fase_barcos_2
     if fnl == True:

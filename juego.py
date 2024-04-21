@@ -246,8 +246,6 @@ def ocultar_imagen_2(event):
                         matriz_botones_2[f+2][c].configure(bg="#7EC0EE")
                     break
 
-#################################
-
 mar1=[]
 mar2=[]
 
@@ -264,10 +262,10 @@ def iniciar_juego(x, y, j1, j2):
     ventana.title("Tablero")
 
     global matriz_botones, matriz_botones_2
-    matriz_botones = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: insert.insertar_barcos(posx,posy,config,columns,rows,matriz_botones,mar1)) for c in range(x // 2)] for f in range(y)]
+    matriz_botones = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: insert.insertar_barcos(posx,posy,config,columns,rows,matriz_botones,1,mar1,mar2)) for c in range(x // 2)] for f in range(y)]
 
     # Crear una segunda matriz de botones
-    matriz_botones_2 = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: insert.insertar_barcos(posx, posy,config,columns,rows,matriz_botones_2,mar2)) for c in range(x - x // 2)] for f in range(y)]
+    matriz_botones_2 = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: insert.insertar_barcos(posx,posy,config,columns,rows,matriz_botones_2,2,mar1,mar2)) for c in range(x - x // 2)] for f in range(y)]
 
     # Calcular las posiciones x e y para centrar las matrices
     ancho_ventana = ventana.winfo_screenwidth()
@@ -368,7 +366,8 @@ def validar_inicio(c,f,j1,j2):
 
 def pantalla_inicio() -> tk.Tk:
     global ventana
-    ventana = tk.Tk()  # Set the window state to full screen
+    ventana = tk.Tk()
+
     ventana.title("Tablero")
     ventana.configure(bg="LightBlue")
 
