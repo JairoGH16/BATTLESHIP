@@ -8,9 +8,11 @@ fnl = False
 fase_barcos_1 = True
 fase_barcos_2 = True
 turno=1
+ataque_posible=False
 def next_pj(matriz1,matriz2,mar1,mar2):
-    global mi, nj, fnl, fase_barcos_1, fase_barcos_2, turno
+    global mi, nj, fnl, fase_barcos_1, fase_barcos_2, turno, ataque_posible
     if fnl == True:
+        ataque_posible=True
         mov.mover_barcos(mar1)
         rest_barcos(matriz1,mar1)
         nj = False
@@ -27,6 +29,7 @@ def next_pj(matriz1,matriz2,mar1,mar2):
         turno+=1
         return(nj, mi, fnl)
     elif nj == None and fnl == False:
+        ataque_posible=True
         mov.mover_barcos(mar2)
         rest_barcos(matriz2,mar2)#llamar rest barcos 2
         nj = True
