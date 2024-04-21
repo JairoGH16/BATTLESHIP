@@ -14,37 +14,41 @@ def next_pj(matriz1,matriz2,mar1,mar2):
     if fnl == True:
         ataque_posible=True
         mov.mover_barcos(mar1)
+        mov.mover_barcos(mar2)
         rest_barcos(matriz1,mar1)
         nj = False
         mi = True
         fnl = False
         return(nj, mi, fnl)
     elif nj == False and fnl == False:
-        for fila in matriz1:
-            for boton in fila:
-                boton.configure(image="")
-        nj = None
-        mi = None
-        fase_barcos_1 = False
-        turno+=1
-        return(nj, mi, fnl)
+        if (len(im.imagenes1_1) == 6 and len(im.imagenes2_1) == 8 and len(im.imagenes3_1) == 6) or fase_barcos_1 == False:
+            for fila in matriz1:
+                for boton in fila:
+                    boton.configure(image="")
+            nj = None
+            mi = None
+            fase_barcos_1 = False
+            turno+=1
+            return(nj, mi, fnl)
+        else:
+            pass
     elif nj == None and fnl == False:
         ataque_posible=True
-        mov.mover_barcos(mar2)
         rest_barcos(matriz2,mar2)#llamar rest barcos 2
         nj = True
         mi = False
         return(nj, mi, fnl)
     elif nj == True and fnl == False:
-        for fila in matriz2:
-            for boton in fila:
-                boton.configure(image="")
-        nj = False
-        fnl = True
-        mi = None
-        fase_barcos_2 = False
-        turno+=1
-        return(nj, mi, fnl)
+        if (len(im.imagenes1_2) == 6 and len(im.imagenes2_2) == 8 and len(im.imagenes3_2) == 6) or fase_barcos_2 == False:
+            for fila in matriz2:
+                for boton in fila:
+                    boton.configure(image="")
+            nj = False
+            fnl = True
+            mi = None
+            fase_barcos_2 = False
+            turno+=1
+            return(nj, mi, fnl)
 
 def rest_barcos(matriz_botones,mar):
     global angulo_rotacion

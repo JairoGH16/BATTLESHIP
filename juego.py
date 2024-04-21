@@ -24,7 +24,7 @@ def salir_juego():
     exit()
 
 def mostrar_imagen(event):
-    if tur.mi == True:
+    if tur.mi == True and tur.fase_barcos_1 == True:
         boton = event.widget
         for f in range(len(matriz_botones)):
             for c in range(len(matriz_botones[f])):
@@ -106,7 +106,7 @@ def mostrar_imagen(event):
                         break
 
 def mostrar_imagen_2(event):
-    if tur.mi == False:
+    if tur.mi == False and tur.fase_barcos_2 == True:
         boton = event.widget
         for f in range(len(matriz_botones_2)):
             for c in range(len(matriz_botones_2[f])):
@@ -188,7 +188,7 @@ def mostrar_imagen_2(event):
                         break
 
 def ocultar_imagen(event):
-    if tur.mi == True:
+    if tur.mi == True and tur.fase_barcos_1 == True:
         boton = event.widget
         for f in range(len(matriz_botones)):
             for c in range(len(matriz_botones[f])):
@@ -218,7 +218,7 @@ def ocultar_imagen(event):
                     break
 
 def ocultar_imagen_2(event):
-    if tur.mi == False:
+    if tur.mi == False and tur.fase_barcos_2 == True:
         boton = event.widget
         for f in range(len(matriz_botones_2)):
             for c in range(len(matriz_botones_2[f])):
