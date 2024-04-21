@@ -6,6 +6,7 @@ import turnos as tur
 import rotar_imagenes as rot
 import var_imagenes as im
 import logica.insertar as insert
+import logica.logica_botones as botones
 
 config = 1
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -250,8 +251,8 @@ mar1=[]
 mar2=[]
 
 def iniciar_juego(x, y, j1, j2):
-    mar1.extend([[{"direccion":"","pieza":"."} for c in range(int(x/2))]for f in range(y)])
-    mar2.extend([[{"direccion":"","pieza":"."} for c in range(int(x/2))]for f in range(y)])
+    mar1.extend([[{"direccion":"","pieza":".","caminando":True,"dañado":False} for c in range(int(x/2))]for f in range(y)])
+    mar2.extend([[{"direccion":"","pieza":".","caminando":True,"dañado":False} for c in range(int(x/2))]for f in range(y)])
 
     global rows, columns
     rows = y
@@ -262,10 +263,10 @@ def iniciar_juego(x, y, j1, j2):
     ventana.title("Tablero")
 
     global matriz_botones, matriz_botones_2
-    matriz_botones = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: insert.insertar_barcos(posx,posy,config,columns,rows,matriz_botones,1,mar1,mar2)) for c in range(x // 2)] for f in range(y)]
+    matriz_botones = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: botones.accion_boton(posx,posy,config,columns,rows,matriz_botones,matriz_botones_2,1,mar1,mar2)) for c in range(x // 2)] for f in range(y)]
 
     # Crear una segunda matriz de botones
-    matriz_botones_2 = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: insert.insertar_barcos(posx,posy,config,columns,rows,matriz_botones_2,2,mar1,mar2)) for c in range(x - x // 2)] for f in range(y)]
+    matriz_botones_2 = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: botones.accion_boton(posx,posy,config,columns,rows,matriz_botones_2,matriz_botones,2,mar1,mar2)) for c in range(x - x // 2)] for f in range(y)]
 
     # Calcular las posiciones x e y para centrar las matrices
     ancho_ventana = ventana.winfo_screenwidth()

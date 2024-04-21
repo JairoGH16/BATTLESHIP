@@ -97,9 +97,9 @@ def mover_barcos(mar):
     for fila in mar:
         pos_x=0
         for columna in fila:
-            if columna["direccion"]=="arriba":
+            if columna["direccion"]=="arriba" and columna["caminando"]==True:
                     mover_arriba(columna,pos_x,pos_y,mar)
-            if columna["direccion"]=="izquierda":
+            if columna["direccion"]=="izquierda" and columna["caminando"]==True:
                 mover_izquierda(columna,pos_x,pos_y,mar)
             pos_x+=1
         pos_y+=1
@@ -108,9 +108,9 @@ def mover_barcos(mar):
     for fila in mar[::-1]:
         pos_x=len(mar[0])-1
         for columna in fila[::-1]:
-            if columna["direccion"]=="abajo":
+            if columna["direccion"]=="abajo" and columna["caminando"]==True:
                 mover_abajo(columna,pos_x,pos_y,mar)
-            if columna["direccion"]=="derecha":
+            if columna["direccion"]=="derecha" and columna["caminando"]==True:
                 mover_derecha(columna,pos_x,pos_y,mar)
             pos_x-=1
         pos_y-=1

@@ -9,7 +9,7 @@ fase_barcos_1 = True
 fase_barcos_2 = True
 turno=1
 def next_pj(matriz1,matriz2,mar1,mar2):
-    global mi, nj, fnl, fase_barcos_1, fase_barcos_2
+    global mi, nj, fnl, fase_barcos_1, fase_barcos_2, turno
     if fnl == True:
         mov.mover_barcos(mar1)
         rest_barcos(matriz1,mar1)
@@ -24,6 +24,7 @@ def next_pj(matriz1,matriz2,mar1,mar2):
         nj = None
         mi = None
         fase_barcos_1 = False
+        turno+=1
         return(nj, mi, fnl)
     elif nj == None and fnl == False:
         mov.mover_barcos(mar2)
@@ -39,6 +40,7 @@ def next_pj(matriz1,matriz2,mar1,mar2):
         fnl = True
         mi = None
         fase_barcos_2 = False
+        turno+=1
         return(nj, mi, fnl)
 
 def rest_barcos(matriz_botones,mar):
@@ -85,6 +87,8 @@ def rest_barcos(matriz_botones,mar):
                 matriz_botones[posy][posx].configure(image=rot.rotar_imagen_b3(1,1, angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                 matriz_botones[posy-1][posx].configure(image=rot.rotar_imagen_b3(2,1, angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                 matriz_botones[posy-2][posx].configure(image=rot.rotar_imagen_b3(3,1, angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
+            if boton["dañado"] == True:
+                matriz_botones[posy][posx].configure(bg="red")
             posx += 1
         posy += 1
     return(matriz_botones)
