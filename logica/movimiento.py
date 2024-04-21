@@ -1,6 +1,4 @@
-mar=[[{"direccion":"","pieza":"."} for y in range(5)]for x in range(5)]
-
-def imprimir_mar():
+def imprimir_mar(mar):
     """imprimir_mar imprime la matriz correspondiente al mar para hacer pruebas en la terminal.
     """
     for fila in mar:
@@ -9,20 +7,7 @@ def imprimir_mar():
         print("")
     print("")
 
-def insertar(pieza:str,direccion:str,pos_x:int,pos_y:int):
-    """insertar es una función que permite insertar una pieza de un barco en las matrices donde funciona la lógica del movimiento.
-
-    Args:
-        pieza (str): corresponde a la parte del barco, trasera, media o delantera, si es un destructor (barco de una sola pieza) entonces se representa
-        con una A.
-        direccion (str): dirección que tiene el barco (derecha, izquierda, arriba o abajo).
-        pos_x (int): posición x de la pieza.
-        pos_y (int): posición y de la pieza.
-    """
-    mar[pos_y][pos_x]["pieza"]=pieza
-    mar[pos_y][pos_x]["direccion"]=direccion
-
-def mover_izquierda(columna:dict,pos_x:int,pos_y:int):
+def mover_izquierda(columna:dict,pos_x:int,pos_y:int,mar):
     """mover_izquierda mueve las piezas hacia la izquierda, un paso para todos los barcos, a excepción de los destructores que se mueven
     dos pasos en caso de ser posible.
 
@@ -43,7 +28,7 @@ def mover_izquierda(columna:dict,pos_x:int,pos_y:int):
     else:
         columna["direccion"]="derecha"
 
-def mover_arriba(columna:dict,pos_x:int,pos_y:int):
+def mover_arriba(columna:dict,pos_x:int,pos_y:int,mar):
     """mover_arriba mueve las piezas hacia arriba, un paso para todos los barcos, a excepción de los destructores que se mueven
     dos pasos en caso de ser posible.
 
@@ -64,7 +49,7 @@ def mover_arriba(columna:dict,pos_x:int,pos_y:int):
     else:
         columna["direccion"]="abajo"
 
-def mover_abajo(columna:dict,pos_x:int,pos_y:int):
+def mover_abajo(columna:dict,pos_x:int,pos_y:int,mar):
     """mover_abajo mueve las piezas hacia abajo, un paso para todos los barcos, a excepción de los destructores que se mueven
     dos pasos en caso de ser posible.
 
@@ -85,7 +70,7 @@ def mover_abajo(columna:dict,pos_x:int,pos_y:int):
     else:
         columna["direccion"]="arriba"
 
-def mover_derecha(columna:dict,pos_x:int,pos_y:int):
+def mover_derecha(columna:dict,pos_x:int,pos_y:int,mar):
     """mover_derecha mueve las piezas hacia la derecha, un paso para todos los barcos, a excepción de los destructores que se mueven
     dos pasos en caso de ser posible.
 
@@ -106,26 +91,26 @@ def mover_derecha(columna:dict,pos_x:int,pos_y:int):
     else:
         columna["direccion"]="izquierda"
 
-def mover_barcos():
+def mover_barcos(mar):
     #hacia arriba e izquierda
     pos_y=0
     for fila in mar:
         pos_x=0
         for columna in fila:
-            if columna["direccion"]=="arriba":
-                    mover_arriba(columna,pos_x,pos_y)
-            if columna["direccion"]=="izquierda":
-                mover_izquierda(columna,pos_x,pos_y)
+            if columna["direccion"]=="arriba" and columna["caminando"]==True:
+                    mover_arriba(columna,pos_x,pos_y,mar)
+            if columna["direccion"]=="izquierda" and columna["caminando"]==True:
+                mover_izquierda(columna,pos_x,pos_y,mar)
             pos_x+=1
         pos_y+=1
     #hacia abajo y derecha
     pos_y=len(mar)-1
     for fila in mar[::-1]:
-        pos_x=len(mar)-1
+        pos_x=len(mar[0])-1
         for columna in fila[::-1]:
-            if columna["direccion"]=="abajo":
-                mover_abajo(columna,pos_x,pos_y)
-            if columna["direccion"]=="derecha":
-                mover_derecha(columna,pos_x,pos_y)
+            if columna["direccion"]=="abajo" and columna["caminando"]==True:
+                mover_abajo(columna,pos_x,pos_y,mar)
+            if columna["direccion"]=="derecha" and columna["caminando"]==True:
+                mover_derecha(columna,pos_x,pos_y,mar)
             pos_x-=1
         pos_y-=1
