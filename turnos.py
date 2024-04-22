@@ -10,6 +10,16 @@ fase_barcos_2 = True
 turno=1
 ataque_posible=False
 def next_pj(matriz1,matriz2,mar1,mar2):
+    """Esta funcion se encarga de llevar los turnos de los Jugadores, dejando entre cada turno un espacio neutro para el manejo del juego en un solo dispositivo.
+
+    Args:
+        matriz1 (_type_): Matriz del Jugador 1
+        matriz2 (_type_): Matriz del Jugador 2
+        mar1 (_type_): Matriz logica del Jugador 1
+        mar2 (_type_): Matriz logica del Jugador 2
+
+    Autor: Rafael Odio
+    """
     global mi, nj, fnl, fase_barcos_1, fase_barcos_2, turno, ataque_posible
     if fnl == True:
         ataque_posible=True
@@ -51,6 +61,14 @@ def next_pj(matriz1,matriz2,mar1,mar2):
             return(nj, mi, fnl)
 
 def rest_barcos(matriz_botones,mar):
+    """Esta funcion se encarga de volver visibles los barcos del jugador actual
+
+    Args:
+        matriz_botones (_type_): Matriz en la que se van a revelar los barcos
+        mar (_type_): Matriz logica a travez de la cual se tomaran los barcos a reflejar
+
+    Autor: Rafael Odio
+    """
     global angulo_rotacion
     posy=0
     for fila in mar:
