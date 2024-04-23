@@ -92,25 +92,39 @@ def mover_derecha(columna:dict,pos_x:int,pos_y:int,mar):
         columna["direccion"]="izquierda"
 
 def mover_barcos(mar):
-    #hacia arriba e izquierda
-    pos_y=0
-    for fila in mar:
-        pos_x=0
-        for columna in fila:
-            if columna["direccion"]=="arriba" and columna["caminando"]==True:
-                    mover_arriba(columna,pos_x,pos_y,mar)
-            if columna["direccion"]=="izquierda" and columna["caminando"]==True:
-                mover_izquierda(columna,pos_x,pos_y,mar)
-            pos_x+=1
-        pos_y+=1
-    #hacia abajo y derecha
+    #hacia la derecha
+    pos_y=len(mar)-1
+    for fila in mar[::-1]:
+        pos_x=len(mar[0])-1
+        for columna in fila[::-1]:
+            if columna["direccion"]=="derecha" and columna["caminando"]==True:
+                mover_derecha(columna,pos_x,pos_y,mar)
+            pos_x-=1
+        pos_y-=1
+    #hacia abajo
     pos_y=len(mar)-1
     for fila in mar[::-1]:
         pos_x=len(mar[0])-1
         for columna in fila[::-1]:
             if columna["direccion"]=="abajo" and columna["caminando"]==True:
                 mover_abajo(columna,pos_x,pos_y,mar)
-            if columna["direccion"]=="derecha" and columna["caminando"]==True:
-                mover_derecha(columna,pos_x,pos_y,mar)
             pos_x-=1
         pos_y-=1
+    #hacia la izquierda
+    pos_y=0
+    for fila in mar:
+        pos_x=0
+        for columna in fila:
+            if columna["direccion"]=="izquierda" and columna["caminando"]==True:
+                mover_izquierda(columna,pos_x,pos_y,mar)
+            pos_x+=1
+        pos_y+=1
+    #hacia arriba
+    pos_y=0
+    for fila in mar:
+        pos_x=0
+        for columna in fila:
+            if columna["direccion"]=="arriba" and columna["caminando"]==True:
+                mover_arriba(columna,pos_x,pos_y,mar)
+            pos_x+=1
+        pos_y+=1

@@ -1,6 +1,7 @@
 import logica.movimiento as mov
 import rotar_imagenes as rot
 import var_imagenes as im
+import tkinter as tk
 
 mi = True
 nj = False
@@ -9,6 +10,7 @@ fase_barcos_1 = True
 fase_barcos_2 = True
 turno=1
 ataque_posible=False
+
 def next_pj(matriz1,matriz2,mar1,mar2):
     """Esta funcion se encarga de llevar los turnos de los Jugadores, dejando entre cada turno un espacio neutro para el manejo del juego en un solo dispositivo.
 
@@ -24,7 +26,6 @@ def next_pj(matriz1,matriz2,mar1,mar2):
     if fnl == True:
         ataque_posible=True
         mov.mover_barcos(mar1)
-        mov.mover_barcos(mar2)
         rest_barcos(matriz1,mar1)
         nj = False
         mi = True
@@ -44,6 +45,7 @@ def next_pj(matriz1,matriz2,mar1,mar2):
             pass
     elif nj == None and fnl == False:
         ataque_posible=True
+        mov.mover_barcos(mar2)
         rest_barcos(matriz2,mar2)#llamar rest barcos 2
         nj = True
         mi = False
@@ -112,7 +114,7 @@ def rest_barcos(matriz_botones,mar):
                 matriz_botones[posy][posx].configure(image=rot.rotar_imagen_b3(1,1, angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                 matriz_botones[posy-1][posx].configure(image=rot.rotar_imagen_b3(2,1, angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                 matriz_botones[posy-2][posx].configure(image=rot.rotar_imagen_b3(3,1, angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
-            if boton["dañado"] == True:
+            if boton["danado"] == True:
                 matriz_botones[posy][posx].configure(bg="red")
             posx += 1
         posy += 1

@@ -7,20 +7,12 @@ import rotar_imagenes as rot
 import var_imagenes as im
 import logica.insertar as insert
 import logica.logica_botones as botones
-
-mar1=[]
-mar2=[]
+import logica.vidas as vidas
+import saves.guardar_cargar as saves
 config = 1
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def cambiar_config(num:int):
-    """Esta funcion se encarga de cambiar la configuracion de los barcos, refiriendose cada configuracion a un tipo de barco.
-
-    Args:
-        num (int): Indica la configuracion que se va a usar, 1 para el barco pequeño, 2 para el barco mediano y 3 para el barco grande.
-
-    Autor: Rafael Odio
-    """
     global config
     if num == 1:
         config = 1
@@ -30,22 +22,10 @@ def cambiar_config(num:int):
         config =3
 
 def salir_juego():
-    """Esta funcion se encarga de cerrar la ejecucion del juego.
-
-    Autor: Rafael Odio
-    """
     exit()
 
 def mostrar_imagen(event):
-    """Esta funcion se encarga de presentar un fondo distinto donde este posicionado el mouse en la matriz 1,
-    segun el tipo de configuracion se mostrara en que casillas es donde se posicionara el barco previamente antes de su colocacion, para proveer al usuario con una interfaz mas intuitiva
-
-    Args:
-        event (_type_): Es el tipo de evento que recibe la funcion respecto al boton, en este caso "<Entry>" ya que se ejecuta al entrar a este.
-
-    Autor: Rafael Odio
-    """
-    if tur.mi == True and tur.fase_barcos_1 == True:
+    if tur.mi == True:
         boton = event.widget
         for f in range(len(matriz_botones)):
             for c in range(len(matriz_botones[f])):
@@ -127,15 +107,7 @@ def mostrar_imagen(event):
                         break
 
 def mostrar_imagen_2(event):
-    """Esta funcion se encarga de presentar un fondo distinto donde este posicionado el mouse en la matriz 2,
-    segun el tipo de configuracion se mostrara en que casillas es donde se posicionara el barco previamente antes de su colocacion, para proveer al usuario con una interfaz mas intuitiva
-
-    Args:
-        event (_type_): Es el tipo de evento que recibe la funcion respecto al boton, en este caso "<Entry>" ya que se ejecuta al entrar a este.
-
-    Autor: Rafael Odio
-    """
-    if tur.mi == False and tur.fase_barcos_2 == True:
+    if tur.mi == False:
         boton = event.widget
         for f in range(len(matriz_botones_2)):
             for c in range(len(matriz_botones_2[f])):
@@ -217,14 +189,7 @@ def mostrar_imagen_2(event):
                         break
 
 def ocultar_imagen(event):
-    """Esta funcion se encarga de deolver a la normalidad el fondo que se cambio en la funcion mostrar_imagen.
-
-    Args:
-        event (_type_): Evento de tipo <Leave>, para indicar cuando el mouse sale del boton
-
-    Autor: Rafael Odio
-    """
-    if tur.mi == True and tur.fase_barcos_1 == True:
+    if tur.mi == True:
         boton = event.widget
         for f in range(len(matriz_botones)):
             for c in range(len(matriz_botones[f])):
@@ -254,14 +219,7 @@ def ocultar_imagen(event):
                     break
 
 def ocultar_imagen_2(event):
-    """Esta funcion se encarga de deolver a la normalidad el fondo que se cambio en la funcion mostrar_imagen_2s.
-
-    Args:
-        event (_type_): Evento de tipo <Leave>, para indicar cuando el mouse sale del boton
-
-    Autor: Rafael Odio
-    """
-    if tur.mi == False and tur.fase_barcos_2 == True:
+    if tur.mi == False:
         boton = event.widget
         for f in range(len(matriz_botones_2)):
             for c in range(len(matriz_botones_2[f])):
@@ -290,9 +248,17 @@ def ocultar_imagen_2(event):
                         matriz_botones_2[f+2][c].configure(bg="#7EC0EE")
                     break
 
-def iniciar_juego(x, y, j1, j2):
-    mar1.extend([[{"direccion":"","pieza":".","caminando":True,"dañado":False} for c in range(int(x/2))]for f in range(y)])
-    mar2.extend([[{"direccion":"","pieza":".","caminando":True,"dañado":False} for c in range(int(x/2))]for f in range(y)])
+mar1=[]
+mar2=[]
+
+def mandar_guardar():
+    saves.guardar_juego(mar1,mar2)
+
+def iniciar_juego(x, y, j1, j2,carga):
+    vidas.nombre_j1=j1
+    vidas.nombre_j2=j2
+    mar1.extend([[{"direccion":"","pieza":".","caminando":True,"danado":False} for c in range(int(x/2))]for f in range(y)])
+    mar2.extend([[{"direccion":"","pieza":".","caminando":True,"danado":False} for c in range(int(x/2))]for f in range(y)])
 
     global rows, columns
     rows = y
@@ -301,6 +267,9 @@ def iniciar_juego(x, y, j1, j2):
         widget.destroy()  # Limpiar la ventana
     ventana.state("zoomed")
     ventana.title("Tablero")
+
+    guardar=tk.Button(ventana, text="Guardar", command=mandar_guardar, height=5,width=7)
+    guardar.place(x=0,y=0)
 
     global matriz_botones, matriz_botones_2
     matriz_botones = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: botones.accion_boton(posx,posy,config,columns,rows,matriz_botones,matriz_botones_2,1,mar1,mar2)) for c in range(x // 2)] for f in range(y)]
@@ -374,17 +343,12 @@ def iniciar_juego(x, y, j1, j2):
     nj.place(x=x*25+200, y=y*50+110)
     nj.configure(text="Siguiente Jugador", command= lambda: tur.next_pj(matriz_botones,matriz_botones_2,mar1,mar2))
 
-def restart(x, y, j1, j2):
-    """Esta funcion vuelve a cargar el juego con los valores indicados en pantalla_inicio, en caso de que ocurra algo indeseado en el proceso del juego
+    if carga==True:
+        mar1=saves.cargar_mar[0]
+        mar2=saves.cargar_mar[1]
+        saves.cargar_otros()
 
-    Args:
-        x (_type_): Cantidad de columnas
-        y (_type_): Cantidad de filas
-        j1 (_type_): Jugador 1
-        j2 (_type_): Jugador 2
-    
-    Autor: Rafael Odios
-    """
+def restart(x, y, j1, j2):
     iniciar_juego(x, y, j1, j2)
     im.verif_pos_1.clear()
     im.verif_pos_2.clear()
@@ -396,74 +360,29 @@ def restart(x, y, j1, j2):
     im.imagenes3_2.clear()
 
 def rotar_barco_i():
-    """Esta funcion se encarga de establecer la rotacion de los barcos para que miren hacia la izquierda(180 grados)
-
-    Returns:
-        _type_: Angulo de rotacion del barco a colocar
-
-    Autor: Rafael Odio
-    """
     im.angulo_rotacion = 180
     return im.angulo_rotacion
 
 def rotar_barco_d():
-    """Esta funcion se encarga de establecer la rotacion de los barcos para que miren hacia la derecha(0 grados)
-
-    Returns:
-        _type_: Angulo de rotacion del barco a colocar
-
-    Autor: Rafael Odio
-    """
     im.angulo_rotacion = 0
     return im.angulo_rotacion
 
 def rotar_barco_a():
-    """Esta funcion se encarga de establecer la rotacion de los barcos para que miren hacia arriba(90 grados)
-
-    Returns:
-        _type_: Angulo de rotacion del barco a colocar
-
-    Autor: Rafael Odio
-    """
     im.angulo_rotacion = 90
     return im.angulo_rotacion
 
 def rotar_barco_b():
-    """Esta funcion se encarga de establecer la rotacion de los barcos para que miren hacia abajo(270 grados)
-
-    Returns:
-        _type_: Angulo de rotacion del barco a colocar
-
-    Autor: Rafael Odio
-    """
     im.angulo_rotacion = 270
     return im.angulo_rotacion
 
-def validar_inicio(c,f,j1,j2):
-    """Esta funcion revisa las datos ingresados para iniciar el juego y verifica si son validos o no.
-
-    Args:
-        c (_type_): Cantidad de columnas
-        f (_type_): Cantidad de filas
-        j1 (_type_): Nombre del Jugador 1
-        j2 (_type_): Nombre del Jugador 2
-    
-    Autor: Rafael Odio
-    """
-    if int(c.get()) >= 20 and int(f.get()) >= 10 and str(j1.get()) != "" and str(j2.get()) != "" and str(j1.get()) != str(j2.get()):
+def validar_inicio(c,f,j1,j2,carga):
+    if int(c.get()) >= 20 and int(f.get()) >= 10:
         iniciar_juego(int(c.get()), int(f.get()), str(j1.get()), str(j2.get()))
 
 def pantalla_inicio() -> tk.Tk:
-    """Esta funcion es la pantalla inicial del juego, aqui se ingresan los datos para dar inicio al juego.
-
-    Returns:
-        tk.Tk: Ventana de menu inicial
-    
-    Autor: Rafael Odio
-    """
     global ventana
     ventana = tk.Tk()
-
+    ventana.attributes("-fullscreen",True)
     ventana.title("Tablero")
     ventana.configure(bg="LightBlue")
 
@@ -473,8 +392,12 @@ def pantalla_inicio() -> tk.Tk:
     c_enter = tk.Entry(ventana)
     f_enter = tk.Entry(ventana)
 
+    boton_carga = tk.Button(ventana, text="Cargar Juego", font=("Comic Sans MS", 8), bg="Gray",
+                             command=lambda: validar_inicio(c_enter, f_enter, j1_enter, j2_enter,True))
+    boton_carga.grid(row=3, column=0, columnspan=2, pady=10, padx=10, sticky="ew")
+
     boton_inicio = tk.Button(ventana, text="Iniciar Juego", font=("Comic Sans MS", 8), bg="Gray",
-                             command=lambda: validar_inicio(c_enter, f_enter, j1_enter, j2_enter))
+                             command=lambda: validar_inicio(c_enter, f_enter, j1_enter, j2_enter,False))
     boton_inicio.grid(row=4, column=0, columnspan=2, pady=10, padx=10, sticky="ew")
 
     c = tk.Label(text="Cantidad de columnas:", font=("Comic Sans MS", 14), bg="LightBlue")
