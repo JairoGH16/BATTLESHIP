@@ -264,3 +264,5 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                         insertar_piezas("C1","abajo",posx,posy-2,mar2)
                         insertar_piezas("C2","abajo",posx,posy-1,mar2)
                         insertar_piezas("C3","abajo",posx,posy,mar2)
+        if len(im.imagenes3_2) == 6 and len(im.imagenes2_2) == 8 and len(im.imagenes1_2) == 6:
+            tur.fase_barcos_2 = False

@@ -9,6 +9,7 @@ fnl = False
 fase_barcos_1 = True
 fase_barcos_2 = True
 turno=1
+visible=True
 ataque_posible=False
 
 def next_pj(matriz1,matriz2,mar1,mar2):
@@ -27,6 +28,7 @@ def next_pj(matriz1,matriz2,mar1,mar2):
         ataque_posible=True
         mov.mover_barcos(mar1)
         rest_barcos(matriz1,mar1)
+        visible=True
         nj = False
         mi = True
         fnl = False
@@ -39,6 +41,7 @@ def next_pj(matriz1,matriz2,mar1,mar2):
             nj = None
             mi = None
             fase_barcos_1 = False
+            visible=False
             turno+=1
             return(nj, mi, fnl)
         else:
@@ -47,6 +50,7 @@ def next_pj(matriz1,matriz2,mar1,mar2):
         ataque_posible=True
         mov.mover_barcos(mar2)
         rest_barcos(matriz2,mar2)#llamar rest barcos 2
+        visible=True
         nj = True
         mi = False
         return(nj, mi, fnl)
@@ -59,6 +63,7 @@ def next_pj(matriz1,matriz2,mar1,mar2):
             fnl = True
             mi = None
             fase_barcos_2 = False
+            visible=False
             turno+=1
             return(nj, mi, fnl)
 
@@ -116,6 +121,8 @@ def rest_barcos(matriz_botones,mar):
                 matriz_botones[posy-2][posx].configure(image=rot.rotar_imagen_b3(3,1, angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
             if boton["danado"] == True:
                 matriz_botones[posy][posx].configure(bg="red")
+            if boton["danado"] == False:
+                matriz_botones[posy][posx].configure(bg="#7EC0EE")
             posx += 1
         posy += 1
     return(matriz_botones)

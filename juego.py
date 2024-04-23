@@ -25,7 +25,7 @@ def salir_juego():
     exit()
 
 def mostrar_imagen(event):
-    if tur.mi == True:
+    if tur.mi == True and tur.fase_barcos_1 == True:
         boton = event.widget
         for f in range(len(matriz_botones)):
             for c in range(len(matriz_botones[f])):
@@ -107,7 +107,7 @@ def mostrar_imagen(event):
                         break
 
 def mostrar_imagen_2(event):
-    if tur.mi == False:
+    if tur.mi == False and tur.fase_barcos_2 == True:
         boton = event.widget
         for f in range(len(matriz_botones_2)):
             for c in range(len(matriz_botones_2[f])):
@@ -189,7 +189,7 @@ def mostrar_imagen_2(event):
                         break
 
 def ocultar_imagen(event):
-    if tur.mi == True:
+    if tur.mi == True and tur.fase_barcos_1 == True:
         boton = event.widget
         for f in range(len(matriz_botones)):
             for c in range(len(matriz_botones[f])):
@@ -219,7 +219,7 @@ def ocultar_imagen(event):
                     break
 
 def ocultar_imagen_2(event):
-    if tur.mi == False:
+    if tur.mi == False and tur.fase_barcos_2 == True:
         boton = event.widget
         for f in range(len(matriz_botones_2)):
             for c in range(len(matriz_botones_2[f])):
@@ -254,11 +254,15 @@ mar2=[]
 def mandar_guardar():
     saves.guardar_juego(mar1,mar2)
 
-def iniciar_juego(x, y, j1, j2,carga):
+def iniciar_juego(x, y, j1, j2,carga,nombre_archivo):
     vidas.nombre_j1=j1
     vidas.nombre_j2=j2
-    mar1.extend([[{"direccion":"","pieza":".","caminando":True,"danado":False} for c in range(int(x/2))]for f in range(y)])
-    mar2.extend([[{"direccion":"","pieza":".","caminando":True,"danado":False} for c in range(int(x/2))]for f in range(y)])
+    global mar1,mar2
+    if carga==False:
+        mar1.extend([[{"direccion":"","pieza":".","caminando":True,"danado":False} for c in range(int(x/2))]for f in range(y)])
+        mar2.extend([[{"direccion":"","pieza":".","caminando":True,"danado":False} for c in range(int(x/2))]for f in range(y)])
+    else:
+        mar1,mar2=saves.cargar_mar(f"{nombre_archivo}")
 
     global rows, columns
     rows = y
@@ -343,10 +347,10 @@ def iniciar_juego(x, y, j1, j2,carga):
     nj.place(x=x*25+200, y=y*50+110)
     nj.configure(text="Siguiente Jugador", command= lambda: tur.next_pj(matriz_botones,matriz_botones_2,mar1,mar2))
 
-    if carga==True:
-        mar1=saves.cargar_mar[0]
-        mar2=saves.cargar_mar[1]
-        saves.cargar_otros()
+    if tur.turno==1 and tur.visible==True:
+        tur.rest_barcos(matriz_botones,mar1)
+    if tur.turno==2 and tur.visible==True:
+        tur.rest_barcos(matriz_botones_2,mar2)
 
 def restart(x, y, j1, j2):
     iniciar_juego(x, y, j1, j2)
@@ -376,8 +380,14 @@ def rotar_barco_b():
     return im.angulo_rotacion
 
 def validar_inicio(c,f,j1,j2,carga):
-    if int(c.get()) >= 20 and int(f.get()) >= 10:
-        iniciar_juego(int(c.get()), int(f.get()), str(j1.get()), str(j2.get()))
+    if carga == True:
+            nombre_archivo=input("Nombre al archivo que quiere cargar: ")
+            saves.cargar_otros(f"{nombre_archivo}")
+            j1 = vidas.nombre_j1
+            j2 = vidas.nombre_j2
+            iniciar_juego(20,10,j1,j2,carga,nombre_archivo)
+    elif int(c.get()) >= 20 and int(f.get()) >= 10:
+        iniciar_juego(int(c.get()), int(f.get()), str(j1.get()), str(j2.get()),carga,"")
 
 def pantalla_inicio() -> tk.Tk:
     global ventana

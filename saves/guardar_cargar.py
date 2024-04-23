@@ -36,7 +36,7 @@ def cargar_mar(nombre_archivo):
         archivo=open(nombre_archivo, "tr")
     except:
         print("no hay archivo")
-    with open(nombre_archivo, "tr") as archivo:
+    with open(f"{nombre_archivo}"+".txt", "tr") as archivo:
         lineas=archivo.readlines()
         mar1=lineas[7]
         mar1=eval(mar1)
@@ -49,17 +49,18 @@ def cargar_otros(nombre_archivo):
         archivo=open(nombre_archivo, "tr")
     except:
         print("no hay archivo")
-    with open("sss.txt", "tr") as archivo:
+    with open(f"{nombre_archivo}"+".txt", "tr") as archivo:
         lineas=archivo.readlines()
-        tur.mi=lineas[0][:-1]
-        tur.nj=lineas[1][:-1]
-        tur.fnl=lineas[2][:-1]
-        tur.fase_barcos_1=lineas[3][:-1]
-        tur.fase_barcos_2=lineas[4][:-1]
-        tur.turno=lineas[5][:-1]
-        tur.ataque_posible=lineas[6][:-1]
-        vidas.nombre_j1=lineas[9][:-1]
-        vidas.nombre_j2=lineas[10][:-1]
-        vidas.vidas_jugador1=lineas[11][:-1]
-        vidas.vidas_jugador1=lineas[12][:-1]
-
+        tur.mi=eval(lineas[0][:-1])
+        tur.nj=eval(lineas[1][:-1])
+        tur.fnl=eval(lineas[2][:-1])
+        tur.fase_barcos_1=eval(lineas[3][:-1])
+        tur.fase_barcos_2=eval(lineas[4][:-1])
+        tur.turno=eval(lineas[5][:-1])
+        tur.ataque_posible=eval(lineas[6][:-1])
+        vidas.nombre_j1=(lineas[9][:-1])
+        vidas.nombre_j2=(lineas[10][:-1])
+        vidas.vidas_jugador1=(lineas[11][:-1])
+        vidas.vidas_jugador1=(lineas[12][:-1])
+        imagenes.verif_pos_1=eval(lineas[20][:-1])
+        imagenes.verif_pos_2=eval(lineas[21][:-1])

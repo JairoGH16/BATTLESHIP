@@ -14,9 +14,13 @@ def quitar_vidas(jugador:int,tipo_barco:str):
         vidas_jugador1[tipo_barco]-=1
     if jugador==2:
         vidas_jugador2[tipo_barco]-=1
-    if vidas_jugador1["barcos_pequeños"]==0 and vidas_jugador1["barcos_medianos"]==0 and vidas_jugador1["barcos_grandes"]==0:
+    if vidas_jugador1["barcos_pequenos"]==0 and vidas_jugador1["barcos_medianos"]==0 and vidas_jugador1["barcos_grandes"]==0:
         anunciar_ganador(nombre_j2)
-    if vidas_jugador2["barcos_pequeños"]==0 and vidas_jugador2["barcos_medianos"]==0 and vidas_jugador2["barcos_grandes"]==0:
+    if vidas_jugador2["barcos_pequenos"]==0 and vidas_jugador2["barcos_medianos"]==0 and vidas_jugador2["barcos_grandes"]==0:
+        
+        
+        
+        
         anunciar_ganador(nombre_j1)
 
 def anunciar_ganador(jugador):

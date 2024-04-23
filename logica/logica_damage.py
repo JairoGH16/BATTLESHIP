@@ -12,7 +12,7 @@ def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
 
     #Si le pega a algún barco se quita el avance a las demás piezas del barco para que no se muevan más
     
-    #barco pequeño no es necesario
+    #barco pequeno no es necesario
     
     #barco mediano
     #barco mediano desde parte 1
@@ -66,10 +66,12 @@ def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
 
     #si todas las piezas de un barco están dañadas, se desaparece
 
-    #barco pequeño
+    #barco pequeno
     if mar[pos_y][pos_x]["pieza"]=="A":
         mar[pos_y][pos_x]["pieza"]="."
-        vidas.quitar_vidas(num_mar,"barcos_pequeños")
+        vidas.quitar_vidas(num_mar,"barcos_pequenos")
+        mar[pos_y][pos_x]["danado"]=False
+        mar[pos_y][pos_x]["caminando"]=True
 
     #barco mediano
     #barco mediano desde parte 1
@@ -79,12 +81,20 @@ def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
             if mar[pos_y][pos_x]["danado"]==True and mar[pos_y][pos_x-1]["danado"]==True:
                 mar[pos_y][pos_x]["pieza"]="."
                 mar[pos_y][pos_x-1]["pieza"]="."
+                mar[pos_y][pos_x]["danado"]=False
+                mar[pos_y][pos_x]["caminando"]=True
+                mar[pos_y][pos_x-1]["danado"]=False
+                mar[pos_y][pos_x-1]["caminando"]=True
                 vidas.quitar_vidas(num_mar,"barcos_medianos")
         #si barco va para arriba o abajo
         if mar[pos_y][pos_x]["direccion"]=="arriba" or mar[pos_y][pos_x]["direccion"]=="abajo":
             if mar[pos_y+1][pos_x]["danado"]==True and mar[pos_y][pos_x]["danado"]==True:
                 mar[pos_y][pos_x]["pieza"]="."
                 mar[pos_y+1][pos_x]["pieza"]="."
+                mar[pos_y][pos_x]["danado"]=False
+                mar[pos_y][pos_x]["caminando"]=True
+                mar[pos_y+1][pos_x]["danado"]=False
+                mar[pos_y+1][pos_x]["caminando"]=True
                 vidas.quitar_vidas(num_mar,"barcos_medianos")
     #barco mediano desde parte 2
     if mar[pos_y][pos_x]["pieza"]=="B2":
@@ -93,12 +103,20 @@ def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
             if mar[pos_y][pos_x]["danado"]==True and mar[pos_y][pos_x+1]["danado"]==True:
                 mar[pos_y][pos_x]["pieza"]="."
                 mar[pos_y][pos_x+1]["pieza"]="."
+                mar[pos_y][pos_x]["danado"]=False
+                mar[pos_y][pos_x]["caminando"]=True
+                mar[pos_y][pos_x+1]["danado"]=False
+                mar[pos_y][pos_x+1]["caminando"]=True
                 vidas.quitar_vidas(num_mar,"barcos_medianos")
         #si barco va para arriba o abajo
         if mar[pos_y][pos_x]["direccion"]=="arriba" or mar[pos_y][pos_x]["direccion"]=="abajo":
             if mar[pos_y-1][pos_x]["danado"]==True and mar[pos_y][pos_x]["danado"]==True:
                 mar[pos_y][pos_x]["pieza"]="."
                 mar[pos_y-1][pos_x]["pieza"]="."
+                mar[pos_y][pos_x]["danado"]=False
+                mar[pos_y][pos_x]["caminando"]=True
+                mar[pos_y-1][pos_x-1]["danado"]=False
+                mar[pos_y-1][pos_x-1]["caminando"]=True
                 vidas.quitar_vidas(num_mar,"barcos_medianos")
 
 #barco grande
@@ -110,6 +128,12 @@ def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
                 mar[pos_y][pos_x]["pieza"]="."
                 mar[pos_y][pos_x-1]["pieza"]="."
                 mar[pos_y][pos_x-2]["pieza"]="."
+                mar[pos_y][pos_x]["danado"]=False
+                mar[pos_y][pos_x]["caminando"]=True
+                mar[pos_y][pos_x-1]["danado"]=False
+                mar[pos_y][pos_x-1]["caminando"]=True
+                mar[pos_y][pos_x-2]["danado"]=False
+                mar[pos_y][pos_x-2]["caminando"]=True
                 vidas.quitar_vidas(num_mar,"barcos_grandes")
         #si barco va para arriba o abajo
         if mar[pos_y][pos_x]["direccion"]=="arriba" or mar[pos_y][pos_x]["direccion"]=="abajo":
@@ -117,6 +141,12 @@ def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
                 mar[pos_y][pos_x]["pieza"]="."
                 mar[pos_y+1][pos_x]["pieza"]="."
                 mar[pos_y+2][pos_x]["pieza"]="."
+                mar[pos_y][pos_x]["danado"]=False
+                mar[pos_y][pos_x]["caminando"]=True
+                mar[pos_y+1][pos_x]["danado"]=False
+                mar[pos_y+1][pos_x]["caminando"]=True
+                mar[pos_y+2][pos_x]["danado"]=False
+                mar[pos_y+2][pos_x]["caminando"]=True
                 vidas.quitar_vidas(num_mar,"barcos_grandes")
     #barco grande desde parte 2
     if mar[pos_y][pos_x]["pieza"]=="C2":
@@ -126,6 +156,12 @@ def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
                 mar[pos_y][pos_x]["pieza"]="."
                 mar[pos_y][pos_x-1]["pieza"]="."
                 mar[pos_y][pos_x+1]["pieza"]="."
+                mar[pos_y][pos_x]["danado"]=False
+                mar[pos_y][pos_x]["caminando"]=True
+                mar[pos_y][pos_x-1]["danado"]=False
+                mar[pos_y][pos_x-1]["caminando"]=True
+                mar[pos_y][pos_x+1]["danado"]=False
+                mar[pos_y][pos_x+1]["caminando"]=True
                 vidas.quitar_vidas(num_mar,"barcos_grandes")
         #si barco va para arriba o abajo
         if mar[pos_y][pos_x]["direccion"]=="arriba" or mar[pos_y][pos_x]["direccion"]=="abajo":
@@ -133,6 +169,12 @@ def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
                 mar[pos_y][pos_x]["pieza"]="."
                 mar[pos_y-1][pos_x]["pieza"]="."
                 mar[pos_y+1][pos_x]["pieza"]="."
+                mar[pos_y][pos_x]["danado"]=False
+                mar[pos_y][pos_x]["caminando"]=True
+                mar[pos_y-1][pos_x]["danado"]=False
+                mar[pos_y-1][pos_x]["caminando"]=True
+                mar[pos_y+1][pos_x]["danado"]=False
+                mar[pos_y+1][pos_x]["caminando"]=True
                 vidas.quitar_vidas(num_mar,"barcos_grandes")
     #barco grande desde parte 3
     if mar[pos_y][pos_x]["pieza"]=="C3":
@@ -142,6 +184,12 @@ def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
                 mar[pos_y][pos_x]["pieza"]="."
                 mar[pos_y][pos_x+1]["pieza"]="."
                 mar[pos_y][pos_x+2]["pieza"]="."
+                mar[pos_y][pos_x]["danado"]=False
+                mar[pos_y][pos_x]["caminando"]=True
+                mar[pos_y][pos_x+1]["danado"]=False
+                mar[pos_y][pos_x+1]["caminando"]=True
+                mar[pos_y][pos_x+2]["danado"]=False
+                mar[pos_y][pos_x+2]["caminando"]=True
                 vidas.quitar_vidas(num_mar,"barcos_grandes")
         #si barco va para arriba o abajo
         if mar[pos_y][pos_x]["direccion"]=="arriba" or mar[pos_y][pos_x]["direccion"]=="abajo":
@@ -149,11 +197,17 @@ def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
                 mar[pos_y][pos_x]["pieza"]="."
                 mar[pos_y-1][pos_x]["pieza"]="."
                 mar[pos_y-2][pos_x]["pieza"]="."
+                mar[pos_y][pos_x]["danado"]=False
+                mar[pos_y][pos_x]["caminando"]=True
+                mar[pos_y-1][pos_x]["danado"]=False
+                mar[pos_y-1][pos_x]["caminando"]=True
+                mar[pos_y-2][pos_x]["danado"]=False
+                mar[pos_y-2][pos_x]["caminando"]=True
                 vidas.quitar_vidas(num_mar,"barcos_grandes")
     
 """
 piezas
-pieza A: barco pequeño
+pieza A: barco pequeno
 pieza B1: parte 1 de barco mediano
 pieza B2: parte 2 de barco mediano
 pieza C1: parte 1 de barco grande
