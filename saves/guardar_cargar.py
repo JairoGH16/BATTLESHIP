@@ -1,9 +1,9 @@
+import tkinter as tk
 import turnos as tur
 import logica.vidas as vidas
 import var_imagenes as imagenes
 
-def guardar_juego(mar1,mar2):
-    nombre_archivo=input("Ponle un nombre a tu archivo, se sobreescribirá si ya existe")
+def guardar_juego(mar1,mar2, nombre_archivo):
     if not nombre_archivo.endswith(".txt"):
         nombre_archivo = nombre_archivo+".txt"
     nombre_archivo=nombre_archivo.replace("/","_").replace("\\","_").replace(":","_").replace(" ","_")

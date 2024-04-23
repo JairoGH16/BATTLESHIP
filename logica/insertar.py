@@ -147,6 +147,8 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                         insertar_piezas("C1","abajo",posx,posy-2,mar1)
                         insertar_piezas("C2","abajo",posx,posy-1,mar1)
                         insertar_piezas("C3","abajo",posx,posy,mar1)
+        if len(im.imagenes3_1) == 6 and len(im.imagenes2_1) == 8 and len(im.imagenes1_1) == 6:
+            tur.fase_barcos_2 = False
 
     #Jugador 2
     elif tur.nj == True and tur.fase_barcos_2 == True:

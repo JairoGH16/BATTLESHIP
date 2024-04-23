@@ -252,7 +252,23 @@ mar1=[]
 mar2=[]
 
 def mandar_guardar():
-    saves.guardar_juego(mar1,mar2)
+    ar = tk.Tk()
+    label = tk.Label(ar, text="Ingrese el nombre del archivo")
+    label.grid(row=0, column=0) 
+    entry_arch = tk.Entry(ar)
+    entry_arch.grid(row=1, column=0)
+
+    aceptar = tk.Button(ar, text="Aceptar")
+    aceptar.grid(row=2, column=0)
+
+    def get_name():
+        nombre_archivo = entry_arch.get() 
+        saves.guardar_juego(mar1, mar2, nombre_archivo)
+        ar.destroy()
+
+    aceptar.config(command=get_name)
+
+    ar.mainloop()
 
 def iniciar_juego(x, y, j1, j2,carga,nombre_archivo):
     vidas.nombre_j1=j1
@@ -331,7 +347,7 @@ def iniciar_juego(x, y, j1, j2,carga,nombre_archivo):
 
     reiniciar = tk.Button(ventana)
     reiniciar.place(x=x*25+100,y=y*50+110)
-    reiniciar.configure(command=lambda: restart(x, y, j1, j2), text="Reiniciar")
+    reiniciar.configure(command=lambda: restart(ventana), text="Reiniciar")
 
     Jug1 = tk.Label(text=f"{j1}", font=("Comic Sans MS", 20), bg="LightBlue")
     label_x = posx_matriz1+(x//2)*50//2-Jug1.winfo_reqwidth()//2
@@ -352,16 +368,9 @@ def iniciar_juego(x, y, j1, j2,carga,nombre_archivo):
     if tur.turno==2 and tur.visible==True:
         tur.rest_barcos(matriz_botones_2,mar2)
 
-def restart(x, y, j1, j2):
-    iniciar_juego(x, y, j1, j2)
-    im.verif_pos_1.clear()
-    im.verif_pos_2.clear()
-    im.imagenes1_1.clear()
-    im.imagenes1_2.clear()
-    im.imagenes2_1.clear()
-    im.imagenes2_2.clear()
-    im.imagenes3_1.clear()
-    im.imagenes3_2.clear()
+def restart(ventana):
+    ventana.destroy()
+    pantalla_inicio()
 
 def rotar_barco_i():
     im.angulo_rotacion = 180
@@ -381,11 +390,27 @@ def rotar_barco_b():
 
 def validar_inicio(c,f,j1,j2,carga):
     if carga == True:
-            nombre_archivo=input("Nombre al archivo que quiere cargar: ")
-            saves.cargar_otros(f"{nombre_archivo}")
-            j1 = vidas.nombre_j1
-            j2 = vidas.nombre_j2
-            iniciar_juego(20,10,j1,j2,carga,nombre_archivo)
+            ar = tk.Tk()
+            label = tk.Label(ar, text="Ingrese el nombre del archivo a cargar: ")
+            label.grid(row=0, column=0) 
+            entry_arch = tk.Entry(ar)
+            entry_arch.grid(row=1, column=0)
+
+            aceptar = tk.Button(ar, text="Aceptar")
+            aceptar.grid(row=2, column=0)
+
+            def get_name():
+                j1 = vidas.nombre_j1
+                j2 = vidas.nombre_j2
+                nombre_archivo = entry_arch.get() 
+                saves.cargar_otros(f"{nombre_archivo}")
+                iniciar_juego(20,10,j1,j2,carga,nombre_archivo)
+                ar.destroy()
+
+            aceptar.config(command=get_name)
+
+            ar.mainloop()
+
     elif int(c.get()) >= 20 and int(f.get()) >= 10:
         iniciar_juego(int(c.get()), int(f.get()), str(j1.get()), str(j2.get()),carga,"")
 
