@@ -7,11 +7,11 @@ nombre_j2=""
 ultimo_intento=[False,False]
 
 vidas_jugador1={"barcos_pequenos":6,
-                "barcos_medianos":4,
-                "barcos_grandes":2}
+                "barcos_medianos":8,
+                "barcos_grandes":6}
 vidas_jugador2={"barcos_pequenos":6,
-                "barcos_medianos":4,
-                "barcos_grandes":2}
+                "barcos_medianos":8,
+                "barcos_grandes":6}
 
 def quitar_vidas(jugador:int,tipo_barco:str):
     print(vidas_jugador2["barcos_medianos"])
