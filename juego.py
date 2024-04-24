@@ -396,20 +396,15 @@ def validar_inicio(c,f,j1,j2,nj1,nj2,carga):
             label.grid(row=0, column=0) 
             entry_arch = tk.Entry(ar)
             entry_arch.grid(row=1, column=0)
-
             aceptar = tk.Button(ar, text="Aceptar")
             aceptar.grid(row=2, column=0)
-
             def get_name():
-                j1 = vidas.nombre_j1
-                j2 = vidas.nombre_j2
                 nombre_archivo = entry_arch.get() 
                 saves.cargar_otros(f"{nombre_archivo}")
-                iniciar_juego(20,10,j1,j2,carga,nombre_archivo)
+                mar1,mar2=saves.cargar_mar(f"{nombre_archivo}")
+                iniciar_juego(len(mar1[0])*2,len(mar1),vidas.nombre_j1,vidas.nombre_j2,carga,nombre_archivo)
                 ar.destroy()
-
             aceptar.config(command=get_name)
-
             ar.mainloop()
 
     elif int(c.get()) >= 20 and int(f.get()) >= 10 and int(c.get())%2 == 0 and str(j1.get()) != "" and str(j2.get()) != "" and str(j1.get()) != str(j2.get()) and str(nj1.get()) != "" and str(nj2.get()) != "" and str(nj1.get()) != str(nj2.get()):
