@@ -3,12 +3,12 @@ nombre_j1=""
 nombre_j2=""
 ultimo_intento=(False,False)
 
-vidas_jugador1={"barcos_pequenos":1,
-                "barcos_medianos":1,
-                "barcos_grandes":1}
-vidas_jugador2={"barcos_pequenos":1,
-                "barcos_medianos":1,
-                "barcos_grandes":1}
+vidas_jugador1={"barcos_pequenos":6,
+                "barcos_medianos":8,
+                "barcos_grandes":6}
+vidas_jugador2={"barcos_pequenos":6,
+                "barcos_medianos":8,
+                "barcos_grandes":6}
 
 def quitar_vidas(jugador:int,tipo_barco:str):
     global ultimo_intento

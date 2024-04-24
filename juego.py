@@ -9,6 +9,7 @@ import logica.insertar as insert
 import logica.logica_botones as botones
 import logica.vidas as vidas
 import saves.guardar_cargar as saves
+
 config = 1
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -388,7 +389,7 @@ def rotar_barco_b():
     im.angulo_rotacion = 270
     return im.angulo_rotacion
 
-def validar_inicio(c,f,j1,j2,carga):
+def validar_inicio(c,f,j1,j2,nj1,nj2,carga):
     if carga == True:
             ar = tk.Tk()
             label = tk.Label(ar, text="Ingrese el nombre del archivo a cargar: ")
@@ -411,7 +412,7 @@ def validar_inicio(c,f,j1,j2,carga):
 
             ar.mainloop()
 
-    elif int(c.get()) >= 20 and int(f.get()) >= 10:
+    elif int(c.get()) >= 20 and int(f.get()) >= 10 and int(c.get())%2 == 0 and str(j1.get()) != "" and str(j2.get()) != "" and str(j1.get()) != str(j2.get()) and str(nj1.get()) != "" and str(nj2.get()) != "" and str(nj1.get()) != str(nj2.get()):
         iniciar_juego(int(c.get()), int(f.get()), str(j1.get()), str(j2.get()),carga,"")
 
 def pantalla_inicio() -> tk.Tk:
@@ -421,42 +422,57 @@ def pantalla_inicio() -> tk.Tk:
     ventana.title("Tablero")
     ventana.configure(bg="LightBlue")
 
-    titulo = tk.Label(text="Battleship TEC Edition", font=("Comic Sans MS", 20), bg="LightBlue")
+    titulo = tk.Label(text="Battleship TEC Edition", font=("Comic Sans MS", 60), bg="LightBlue")
     titulo.grid(row=0, column=0, columnspan=4, pady=10)
 
     c_enter = tk.Entry(ventana)
     f_enter = tk.Entry(ventana)
 
-    boton_carga = tk.Button(ventana, text="Cargar Juego", font=("Comic Sans MS", 8), bg="Gray",
-                             command=lambda: validar_inicio(c_enter, f_enter, j1_enter, j2_enter,True))
-    boton_carga.grid(row=3, column=0, columnspan=2, pady=10, padx=10, sticky="ew")
+    boton_carga = tk.Button(ventana, text="Cargar Juego", font=("Comic Sans MS", 26), bg="Gray",
+                             command=lambda: validar_inicio(c_enter, f_enter, j1_enter, j2_enter,nj1_enter,nj2_enter,True))
+    boton_carga.grid(row=4, column=0, columnspan=4, pady=10, padx=10)
 
-    boton_inicio = tk.Button(ventana, text="Iniciar Juego", font=("Comic Sans MS", 8), bg="Gray",
-                             command=lambda: validar_inicio(c_enter, f_enter, j1_enter, j2_enter,False))
-    boton_inicio.grid(row=4, column=0, columnspan=2, pady=10, padx=10, sticky="ew")
+    boton_inicio = tk.Button(ventana, text="Iniciar Juego", font=("Comic Sans MS", 26), bg="Gray",
+                             command=lambda: validar_inicio(c_enter, f_enter, j1_enter, j2_enter,nj1_enter,nj2_enter,False))
+    boton_inicio.grid(row=3, column=0, columnspan=4, pady=10, padx=10)
 
-    c = tk.Label(text="Cantidad de columnas:", font=("Comic Sans MS", 14), bg="LightBlue")
+    c = tk.Label(text="Cantidad de columnas:", font=("Comic Sans MS", 20), bg="LightBlue")
     c.grid(row=6, column=0, sticky="w", padx=10)
-    c_enter.grid(row=6, column=1, padx=10)
+    c_enter.grid(row=6, column=0, ipadx=100)
 
-    f = tk.Label(text="Cantidad de filas:", font=("Comic Sans MS", 14), bg="LightBlue")
+    f = tk.Label(text="Cantidad de filas:", font=("Comic Sans MS", 20), bg="LightBlue")
     f.grid(row=7, column=0, sticky="w", padx=10)
-    f_enter.grid(row=7, column=1, padx=10)
+    f_enter.grid(row=7, column=0, ipadx=100)
 
-    btn_salir = tk.Button(ventana, text="Salir del juego", font=("Comic Sans MS", 8), bg="Gray", command=salir_juego)
-    btn_salir.grid(row=4, column=2, columnspan=2, pady=10, padx=10, sticky="ew")
+    btn_salir = tk.Button(ventana, text="Salir del juego", font=("Comic Sans MS", 26), bg="Gray", command=salir_juego)
+    btn_salir.grid(row=5, column=0, columnspan=4, pady=10, padx=10)
 
-    j1 = tk.Label(text="Nombre jugador 1:", font=("Comic Sans MS", 14), bg="LightBlue")
+    j1 = tk.Label(text="Nombre jugador 1:", font=("Comic Sans MS", 20), bg="LightBlue")
     j1.grid(row=8, column=0, sticky="w", padx=10)
     j1_enter = tk.Entry(ventana)
-    j1_enter.grid(row=8, column=1, padx=10)
+    j1_enter.grid(row=8, column=0, ipadx=100)
 
-    j2 = tk.Label(text="Nombre jugador 2:", font=("Comic Sans MS", 14), bg="LightBlue")
-    j2.grid(row=9, column=0, sticky="w", padx=10)
+    nj1 = tk.Label(text="Nickname J1:", font=("Comic Sans MS", 20), bg="LightBlue")
+    nj1.grid(row=9, column=0, sticky="w", padx=10)
+    nj1_enter = tk.Entry(ventana)
+    nj1_enter.grid(row=9, column=0, ipadx= 100)
+
+    j2 = tk.Label(text="Nombre jugador 2:", font=("Comic Sans MS", 20), bg="LightBlue")
+    j2.grid(row=10, column=0, sticky="w", padx=10)
     j2_enter = tk.Entry(ventana)
-    j2_enter.grid(row=9, column=1, padx=10)
+    j2_enter.grid(row=10, column=0, ipadx=100)
 
-    desc = tk.Label(text="El mejor jueguito de battleship que te vas a encontrar", font=("Comic Sans MS", 20),
+    nj2 = tk.Label(text="Nickname J2:", font=("Comic Sans MS", 20), bg="LightBlue")
+    nj2.grid(row=11, column=0, sticky="w", padx=10)
+    nj2_enter = tk.Entry(ventana)
+    nj2_enter.grid(row=11, column=0, ipadx=100)
+
+    desc = tk.Label(text="""BattleShip es un juego de estrategia basado en destruir la flota enemiga adivinando sus posiciones, gana el primero en derribar todas las embarcaciones enemigas\n\n
+                    Instrucciones de uso:\n
+                    -Minimo de columnas: 20(debe ser una cantidad par)\n
+                    -Minimo de filas: 10\n
+                    -Los nombres y nicknames de cada jugador deben ser distintos entre si, y no deben estar vacios\n
+                    -Se deben colocar todos los barcos para pasar al siguiente jugador en la fase de barcos""", font=("Comic Sans MS", 20),
                     bg="LightBlue")
     desc.grid(row=1, column=0, columnspan=4, pady=10)
 

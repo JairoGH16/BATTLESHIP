@@ -34,7 +34,7 @@ def next_pj(matriz1,matriz2,mar1,mar2):
         fnl = False
         return(nj, mi, fnl)
     elif nj == False and fnl == False:
-        if (len(im.imagenes1_1) == 6 and len(im.imagenes2_1) == 8 and len(im.imagenes3_1) == 6) or fase_barcos_1 == False:
+        if (im.barcos1_1 == 6 and im.barcos2_1 == 4 and im.barcos3_1 == 2) or fase_barcos_1 == False:
             for fila in matriz1:
                 for boton in fila:
                     boton.configure(image="")
@@ -55,7 +55,7 @@ def next_pj(matriz1,matriz2,mar1,mar2):
         mi = False
         return(nj, mi, fnl)
     elif nj == True and fnl == False:
-        if (len(im.imagenes1_2) == 6 and len(im.imagenes2_2) == 8 and len(im.imagenes3_2) == 6) or fase_barcos_2 == False:
+        if (im.barcos1_2 == 6 and im.barcos2_2 == 4 and im.barcos3_2 == 2) or fase_barcos_2 == False:
             for fila in matriz2:
                 for boton in fila:
                     boton.configure(image="")

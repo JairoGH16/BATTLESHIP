@@ -41,9 +41,10 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                 for x in im.imagenes1_1:
                     var+=1
                 if var < 6:
-                    if ((posy, posx)) not in im.verif_pos_1:
+                    if ((posy, posx)) not in im.verif_pos_1 and im.barcos1_1 < 6:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen(verif, im.angulo_rotacion, im.imagenes1_1, im.imagenes1_2))
                         im.verif_pos_1.append((posy, posx))
+                        im.barcos1_1+=1
                         if im.angulo_rotacion == 0:
                             direccion = "derecha"
                         elif im.angulo_rotacion == 180:
@@ -59,39 +60,43 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
             for x in im.imagenes2_1:
                 var+=1
             if var < 8:
-                if im.angulo_rotacion == 0 and ((posy, posx)) not in im.verif_pos_1 and ((posy, posx-1)) not in im.verif_pos_1:
+                if im.angulo_rotacion == 0 and ((posy, posx)) not in im.verif_pos_1 and ((posy, posx-1)) not in im.verif_pos_1 and im.barcos2_1 < 4:
                     if posy < rows and posx > 0 and posx < columns-1:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b2(1, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         matriz_visual[posy][posx-1].configure(image=rot.rotar_imagen_b2(2, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         im.verif_pos_1.append((posy, posx))
                         im.verif_pos_1.append((posy, posx-1))
+                        im.barcos2_1+=1
                         insertar_piezas("B1","derecha",posx,posy,mar1)
                         insertar_piezas("B2","derecha",posx-1,posy,mar1)
 
-                elif im.angulo_rotacion == 180 and ((posy, posx)) not in im.verif_pos_1 and ((posy, posx+1)) not in im.verif_pos_1:
+                elif im.angulo_rotacion == 180 and ((posy, posx)) not in im.verif_pos_1 and ((posy, posx+1)) not in im.verif_pos_1 and im.barcos2_1 < 4:
                     if posx < columns-1:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b2(1, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         matriz_visual[posy][posx+1].configure(image=rot.rotar_imagen_b2(2, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         im.verif_pos_1.append((posy, posx))
                         im.verif_pos_1.append((posy, posx+1))
+                        im.barcos2_1+=1
                         insertar_piezas("B1","izquierda",posx+1,posy,mar1)
                         insertar_piezas("B2","izquierda",posx,posy,mar1)
 
-                elif im.angulo_rotacion == 90 and ((posy, posx)) not in im.verif_pos_1 and ((posy+1, posx)) not in im.verif_pos_1:
+                elif im.angulo_rotacion == 90 and ((posy, posx)) not in im.verif_pos_1 and ((posy+1, posx)) not in im.verif_pos_1 and im.barcos2_1 < 4:
                     if posy < rows-1:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b2(1, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         matriz_visual[posy+1][posx].configure(image=rot.rotar_imagen_b2(2, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         im.verif_pos_1.append((posy, posx))
                         im.verif_pos_1.append((posy+1, posx))
+                        im.barcos2_1+=1
                         insertar_piezas("B1","arriba",posx,posy,mar1)
                         insertar_piezas("B2","arriba",posx,posy+1,mar1)
 
-                elif im.angulo_rotacion == 270 and ((posy, posx)) not in im.verif_pos_1 and ((posy-1, posx)) not in im.verif_pos_1:
+                elif im.angulo_rotacion == 270 and ((posy, posx)) not in im.verif_pos_1 and ((posy-1, posx)) not in im.verif_pos_1 and im.barcos2_1 < 4:
                     if posy < rows:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b2(1, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         matriz_visual[posy-1][posx].configure(image=rot.rotar_imagen_b2(2, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         im.verif_pos_1.append((posy, posx))
                         im.verif_pos_1.append((posy-1, posx))
+                        im.barcos2_1+=1
                         insertar_piezas("B1","abajo",posx,posy-1,mar1)
                         insertar_piezas("B2","abajo",posx,posy,mar1)
 
@@ -100,7 +105,7 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
             for x in im.imagenes3_1:
                 var+=1
             if var < 6:
-                if im.angulo_rotacion == 0 and ((posy, posx)) not in im.verif_pos_1 and ((posy, posx-1)) not in im.verif_pos_1 and ((posy, posx-2)) not in im.verif_pos_1:
+                if im.angulo_rotacion == 0 and ((posy, posx)) not in im.verif_pos_1 and ((posy, posx-1)) not in im.verif_pos_1 and ((posy, posx-2)) not in im.verif_pos_1 and im.barcos3_1 < 2:
                     if posx > 1:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b3(1, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                         matriz_visual[posy][posx-1].configure(image=rot.rotar_imagen_b3(2, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
@@ -108,11 +113,12 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                         im.verif_pos_1.append((posy, posx))
                         im.verif_pos_1.append((posy, posx-1))
                         im.verif_pos_1.append((posy, posx-2))
+                        im.barcos3_1+=1
                         insertar_piezas("C1","derecha",posx,posy,mar1)
                         insertar_piezas("C2","derecha",posx-1,posy,mar1)
                         insertar_piezas("C3","derecha",posx-2,posy,mar1)
 
-                elif im.angulo_rotacion == 180 and ((posy, posx)) not in im.verif_pos_1 and ((posy, posx+1)) not in im.verif_pos_1 and ((posy, posx+2)) not in im.verif_pos_1:
+                elif im.angulo_rotacion == 180 and ((posy, posx)) not in im.verif_pos_1 and ((posy, posx+1)) not in im.verif_pos_1 and ((posy, posx+2)) not in im.verif_pos_1 and im.barcos3_1 < 2:
                     if posx < columns-2:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b3(1, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                         matriz_visual[posy][posx+1].configure(image=rot.rotar_imagen_b3(2, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
@@ -120,11 +126,12 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                         im.verif_pos_1.append((posy, posx))
                         im.verif_pos_1.append((posy, posx+1))
                         im.verif_pos_1.append((posy, posx+2))
+                        im.barcos3_1+=1
                         insertar_piezas("C1","izquierda",posx+2,posy,mar1)
                         insertar_piezas("C2","izquierda",posx+1,posy,mar1)
                         insertar_piezas("C3","izquierda",posx,posy,mar1)
 
-                elif im.angulo_rotacion == 90 and ((posy, posx)) not in im.verif_pos_1 and ((posy+1, posx)) not in im.verif_pos_1 and ((posy+2, posx)) not in im.verif_pos_1:
+                elif im.angulo_rotacion == 90 and ((posy, posx)) not in im.verif_pos_1 and ((posy+1, posx)) not in im.verif_pos_1 and ((posy+2, posx)) not in im.verif_pos_1 and im.barcos3_1 < 2:
                     if posy < rows-2:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b3(1, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                         matriz_visual[posy+1][posx].configure(image=rot.rotar_imagen_b3(2, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
@@ -132,11 +139,12 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                         im.verif_pos_1.append((posy, posx))
                         im.verif_pos_1.append((posy+1, posx))
                         im.verif_pos_1.append((posy+2, posx))
+                        im.barcos3_1+=1
                         insertar_piezas("C1","arriba",posx,posy,mar1)
                         insertar_piezas("C2","arriba",posx,posy+1,mar1)
                         insertar_piezas("C3","arriba",posx,posy+2,mar1)
 
-                elif im.angulo_rotacion == 270 and ((posy, posx)) not in im.verif_pos_1 and ((posy-1, posx)) not in im.verif_pos_1 and ((posy-2, posx)) not in im.verif_pos_1:
+                elif im.angulo_rotacion == 270 and ((posy, posx)) not in im.verif_pos_1 and ((posy-1, posx)) not in im.verif_pos_1 and ((posy-2, posx)) not in im.verif_pos_1 and im.barcos3_1 < 2:
                     if posy > 1:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b3(1, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                         matriz_visual[posy-1][posx].configure(image=rot.rotar_imagen_b3(2, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
@@ -144,11 +152,10 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                         im.verif_pos_1.append((posy, posx))
                         im.verif_pos_1.append((posy-1, posx))
                         im.verif_pos_1.append((posy-2, posx))
+                        im.barcos3_1+=1
                         insertar_piezas("C1","abajo",posx,posy-2,mar1)
                         insertar_piezas("C2","abajo",posx,posy-1,mar1)
                         insertar_piezas("C3","abajo",posx,posy,mar1)
-        if len(im.imagenes3_1) == 6 and len(im.imagenes2_1) == 8 and len(im.imagenes1_1) == 6:
-            tur.fase_barcos_2 = False
 
     #Jugador 2
     elif tur.nj == True and tur.fase_barcos_2 == True:
@@ -160,9 +167,10 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                 for x in im.imagenes1_2:
                     var+=1
                 if var < 6:
-                    if ((posy, posx)) not in im.verif_pos_2:
+                    if ((posy, posx)) not in im.verif_pos_2 and im.barcos1_2 < 6:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen(verif, im.angulo_rotacion, im.imagenes1_1, im.imagenes1_2))
                         im.verif_pos_2.append((posy, posx))
+                        im.barcos1_2+=1
                         if im.angulo_rotacion == 0:
                             direccion = "derecha"
                         elif im.angulo_rotacion == 180:
@@ -178,39 +186,43 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
             for x in im.imagenes2_2:
                 var+=1
             if var < 8:
-                if im.angulo_rotacion == 0 and ((posy, posx)) not in im.verif_pos_2 and ((posy, posx-1)) not in im.verif_pos_2:
+                if im.angulo_rotacion == 0 and ((posy, posx)) not in im.verif_pos_2 and ((posy, posx-1)) not in im.verif_pos_2 and im.barcos2_2 < 4:
                     if posy < rows and posx > 0 and posx < columns-1:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b2(1, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         matriz_visual[posy][posx-1].configure(image=rot.rotar_imagen_b2(2, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         im.verif_pos_2.append((posy, posx))
                         im.verif_pos_2.append((posy, posx-1))
+                        im.barcos2_2+=1
                         insertar_piezas("B1","derecha",posx,posy,mar2)
                         insertar_piezas("B2","derecha",posx-1,posy,mar2)
 
-                elif im.angulo_rotacion == 180 and ((posy, posx)) not in im.verif_pos_2 and ((posy, posx+1)) not in im.verif_pos_2:
+                elif im.angulo_rotacion == 180 and ((posy, posx)) not in im.verif_pos_2 and ((posy, posx+1)) not in im.verif_pos_2 and im.barcos2_2 < 4:
                     if posx < columns-1:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b2(1, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         matriz_visual[posy][posx+1].configure(image=rot.rotar_imagen_b2(2, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         im.verif_pos_2.append((posy, posx))
                         im.verif_pos_2.append((posy, posx+1))
+                        im.barcos2_2+=1
                         insertar_piezas("B1","izquierda",posx+1,posy,mar2)
                         insertar_piezas("B2","izquierda",posx,posy,mar2)
                         
-                elif im.angulo_rotacion == 90 and ((posy, posx)) not in im.verif_pos_2 and ((posy+1, posx)) not in im.verif_pos_2:
+                elif im.angulo_rotacion == 90 and ((posy, posx)) not in im.verif_pos_2 and ((posy+1, posx)) not in im.verif_pos_2 and im.barcos2_2 < 4:
                     if posy < rows-1:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b2(1, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         matriz_visual[posy+1][posx].configure(image=rot.rotar_imagen_b2(2, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         im.verif_pos_2.append((posy, posx))
                         im.verif_pos_2.append((posy+1, posx))
+                        im.barcos2_2+=1
                         insertar_piezas("B1","arriba",posx,posy,mar2)
                         insertar_piezas("B2","arriba",posx,posy+1,mar2)
 
-                elif im.angulo_rotacion == 270 and ((posy, posx)) not in im.verif_pos_2 and ((posy-1, posx)) not in im.verif_pos_2:
+                elif im.angulo_rotacion == 270 and ((posy, posx)) not in im.verif_pos_2 and ((posy-1, posx)) not in im.verif_pos_2 and im.barcos2_2 < 4:
                     if posy < rows:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b2(1, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         matriz_visual[posy-1][posx].configure(image=rot.rotar_imagen_b2(2, verif, im.angulo_rotacion, im.imagenes2_1, im.imagenes2_2))
                         im.verif_pos_2.append((posy, posx))
                         im.verif_pos_2.append((posy-1, posx))
+                        im.barcos2_2+=1
                         insertar_piezas("B1","abajo",posx,posy-1,mar2)
                         insertar_piezas("B2","abajo",posx,posy,mar2)
 
@@ -219,7 +231,7 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
             for x in im.imagenes3_2:
                 var+=1
             if var < 6:
-                if im.angulo_rotacion == 0 and ((posy, posx)) not in im.verif_pos_2 and ((posy, posx-1)) not in im.verif_pos_2 and ((posy, posx-2)) not in im.verif_pos_2:
+                if im.angulo_rotacion == 0 and ((posy, posx)) not in im.verif_pos_2 and ((posy, posx-1)) not in im.verif_pos_2 and ((posy, posx-2)) not in im.verif_pos_2 and im.barcos3_2 < 2:
                     if posx > 1:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b3(1, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                         matriz_visual[posy][posx-1].configure(image=rot.rotar_imagen_b3(2, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
@@ -227,11 +239,12 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                         im.verif_pos_2.append((posy, posx))
                         im.verif_pos_2.append((posy, posx-1))
                         im.verif_pos_2.append((posy, posx-2))
+                        im.barcos3_2+=1
                         insertar_piezas("C1","derecha",posx,posy,mar2)
                         insertar_piezas("C2","derecha",posx-1,posy,mar2)
                         insertar_piezas("C3","derecha",posx-2,posy,mar2)
 
-                elif im.angulo_rotacion == 180 and ((posy, posx)) not in im.verif_pos_2 and ((posy, posx+1)) not in im.verif_pos_2 and ((posy, posx+2)) not in im.verif_pos_2:
+                elif im.angulo_rotacion == 180 and ((posy, posx)) not in im.verif_pos_2 and ((posy, posx+1)) not in im.verif_pos_2 and ((posy, posx+2)) not in im.verif_pos_2 and im.barcos3_2 < 2:
                     if posx < columns-2:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b3(1, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                         matriz_visual[posy][posx+1].configure(image=rot.rotar_imagen_b3(2, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
@@ -239,11 +252,12 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                         im.verif_pos_2.append((posy, posx))
                         im.verif_pos_2.append((posy, posx+1))
                         im.verif_pos_2.append((posy, posx+2))
+                        im.barcos3_2+=1
                         insertar_piezas("C1","izquierda",posx+2,posy,mar2)
                         insertar_piezas("C2","izquierda",posx+1,posy,mar2)
                         insertar_piezas("C3","izquierda",posx,posy,mar2)
 
-                elif im.angulo_rotacion == 90 and ((posy, posx)) not in im.verif_pos_2 and ((posy+1, posx)) not in im.verif_pos_2 and ((posy+2, posx)) not in im.verif_pos_2:
+                elif im.angulo_rotacion == 90 and ((posy, posx)) not in im.verif_pos_2 and ((posy+1, posx)) not in im.verif_pos_2 and ((posy+2, posx)) not in im.verif_pos_2 and im.barcos3_2 < 2:
                     if posy < rows-2:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b3(1, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                         matriz_visual[posy+1][posx].configure(image=rot.rotar_imagen_b3(2, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
@@ -251,11 +265,12 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                         im.verif_pos_2.append((posy, posx))
                         im.verif_pos_2.append((posy+1, posx))
                         im.verif_pos_2.append((posy+2, posx))
+                        im.barcos3_2+=1
                         insertar_piezas("C1","arriba",posx,posy,mar2)
                         insertar_piezas("C2","arriba",posx,posy+1,mar2)
                         insertar_piezas("C3","arriba",posx,posy+2,mar2)
 
-                elif im.angulo_rotacion == 270 and ((posy, posx)) not in im.verif_pos_2 and ((posy-1, posx)) not in im.verif_pos_2 and ((posy-2, posx)) not in im.verif_pos_2:
+                elif im.angulo_rotacion == 270 and ((posy, posx)) not in im.verif_pos_2 and ((posy-1, posx)) not in im.verif_pos_2 and ((posy-2, posx)) not in im.verif_pos_2 and im.barcos3_2 < 2:
                     if posy > 1:
                         matriz_visual[posy][posx].configure(image=rot.rotar_imagen_b3(1, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
                         matriz_visual[posy-1][posx].configure(image=rot.rotar_imagen_b3(2, verif, im.angulo_rotacion, im.imagenes3_1, im.imagenes3_2))
@@ -263,8 +278,7 @@ def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,ma
                         im.verif_pos_2.append((posy, posx))
                         im.verif_pos_2.append((posy-1, posx))
                         im.verif_pos_2.append((posy-2, posx))
+                        im.barcos3_2+=1
                         insertar_piezas("C1","abajo",posx,posy-2,mar2)
                         insertar_piezas("C2","abajo",posx,posy-1,mar2)
                         insertar_piezas("C3","abajo",posx,posy,mar2)
-        if len(im.imagenes3_2) == 6 and len(im.imagenes2_2) == 8 and len(im.imagenes1_2) == 6:
-            tur.fase_barcos_2 = False
