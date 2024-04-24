@@ -418,61 +418,59 @@ def validar_inicio(c,f,j1,j2,nj1,nj2,carga):
 def pantalla_inicio() -> tk.Tk:
     global ventana
     ventana = tk.Tk()
-    ventana.attributes("-fullscreen",True)
+    ventana.state("zoomed")
     ventana.title("Tablero")
     ventana.configure(bg="LightBlue")
 
-    titulo = tk.Label(text="Battleship TEC Edition", font=("Comic Sans MS", 60), bg="LightBlue")
+    titulo = tk.Label(text="Battleship TEC Edition", font=("Comic Sans MS", 40), bg="LightBlue")
     titulo.grid(row=0, column=0, columnspan=4, pady=10)
 
     c_enter = tk.Entry(ventana)
     f_enter = tk.Entry(ventana)
 
-    boton_carga = tk.Button(ventana, text="Cargar Juego", font=("Comic Sans MS", 26), bg="Gray",
+    boton_carga = tk.Button(ventana, text="Cargar Juego", font=("Comic Sans MS", 14), bg="Gray",
                              command=lambda: validar_inicio(c_enter, f_enter, j1_enter, j2_enter,nj1_enter,nj2_enter,True))
     boton_carga.grid(row=4, column=0, columnspan=4, pady=10, padx=10)
 
-    boton_inicio = tk.Button(ventana, text="Iniciar Juego", font=("Comic Sans MS", 26), bg="Gray",
+    boton_inicio = tk.Button(ventana, text="Iniciar Juego", font=("Comic Sans MS", 14), bg="Gray",
                              command=lambda: validar_inicio(c_enter, f_enter, j1_enter, j2_enter,nj1_enter,nj2_enter,False))
     boton_inicio.grid(row=3, column=0, columnspan=4, pady=10, padx=10)
 
-    c = tk.Label(text="Cantidad de columnas:", font=("Comic Sans MS", 20), bg="LightBlue")
+    c = tk.Label(text="Cantidad de columnas:", font=("Comic Sans MS", 14), bg="LightBlue")
     c.grid(row=6, column=0, sticky="w", padx=10)
     c_enter.grid(row=6, column=0, ipadx=100)
 
-    f = tk.Label(text="Cantidad de filas:", font=("Comic Sans MS", 20), bg="LightBlue")
+    f = tk.Label(text="Cantidad de filas:", font=("Comic Sans MS", 14), bg="LightBlue")
     f.grid(row=7, column=0, sticky="w", padx=10)
     f_enter.grid(row=7, column=0, ipadx=100)
 
-    btn_salir = tk.Button(ventana, text="Salir del juego", font=("Comic Sans MS", 26), bg="Gray", command=salir_juego)
+    btn_salir = tk.Button(ventana, text="Salir del juego", font=("Comic Sans MS", 14), bg="Gray", command=salir_juego)
     btn_salir.grid(row=5, column=0, columnspan=4, pady=10, padx=10)
 
-    j1 = tk.Label(text="Nombre jugador 1:", font=("Comic Sans MS", 20), bg="LightBlue")
+    j1 = tk.Label(text="Nombre jugador 1:", font=("Comic Sans MS", 15), bg="LightBlue")
     j1.grid(row=8, column=0, sticky="w", padx=10)
     j1_enter = tk.Entry(ventana)
     j1_enter.grid(row=8, column=0, ipadx=100)
 
-    nj1 = tk.Label(text="Nickname J1:", font=("Comic Sans MS", 20), bg="LightBlue")
+    nj1 = tk.Label(text="Nickname J1:", font=("Comic Sans MS", 15), bg="LightBlue")
     nj1.grid(row=9, column=0, sticky="w", padx=10)
     nj1_enter = tk.Entry(ventana)
     nj1_enter.grid(row=9, column=0, ipadx= 100)
 
-    j2 = tk.Label(text="Nombre jugador 2:", font=("Comic Sans MS", 20), bg="LightBlue")
+    j2 = tk.Label(text="Nombre jugador 2:", font=("Comic Sans MS", 15), bg="LightBlue")
     j2.grid(row=10, column=0, sticky="w", padx=10)
     j2_enter = tk.Entry(ventana)
     j2_enter.grid(row=10, column=0, ipadx=100)
 
-    nj2 = tk.Label(text="Nickname J2:", font=("Comic Sans MS", 20), bg="LightBlue")
+    nj2 = tk.Label(text="Nickname J2:", font=("Comic Sans MS", 15), bg="LightBlue")
     nj2.grid(row=11, column=0, sticky="w", padx=10)
     nj2_enter = tk.Entry(ventana)
     nj2_enter.grid(row=11, column=0, ipadx=100)
 
-    desc = tk.Label(text="""BattleShip es un juego de estrategia basado en destruir la flota enemiga adivinando sus posiciones, gana el primero en derribar todas las embarcaciones enemigas\n\n
+    desc = tk.Label(text="""BattleShip es un juego de estrategia basado en destruir la flota enemiga adivinando sus posiciones, gana el primero en derribar todas las embarcaciones enemigas\n
                     Instrucciones de uso:\n
                     -Minimo de columnas: 20(debe ser una cantidad par)\n
-                    -Minimo de filas: 10\n
-                    -Los nombres y nicknames de cada jugador deben ser distintos entre si, y no deben estar vacios\n
-                    -Se deben colocar todos los barcos para pasar al siguiente jugador en la fase de barcos""", font=("Comic Sans MS", 20),
+                    -Minimo de filas: 10s""", font=("Comic Sans MS", 12),
                     bg="LightBlue")
     desc.grid(row=1, column=0, columnspan=4, pady=10)
 
