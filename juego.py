@@ -334,10 +334,10 @@ def iniciar_juego(x, y, j1, j2,carga,nombre_archivo):
     guardar.place(x=0,y=0)
 
     global matriz_botones, matriz_botones_2
-    matriz_botones = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: botones.accion_boton(posx,posy,config,columns,rows,matriz_botones,matriz_botones_2,1,mar1,mar2)) for c in range(x // 2)] for f in range(y)]
+    matriz_botones = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: botones.accion_boton(posx,posy,config,columns,rows,matriz_botones,1,mar1,mar2)) for c in range(x // 2)] for f in range(y)]
 
     # Crear una segunda matriz de botones
-    matriz_botones_2 = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: botones.accion_boton(posx,posy,config,columns,rows,matriz_botones_2,matriz_botones,2,mar1,mar2)) for c in range(x - x // 2)] for f in range(y)]
+    matriz_botones_2 = [[tk.Button(ventana, borderwidth=2, bg="""#7EC0EE""", command=lambda posx=c, posy=f: botones.accion_boton(posx,posy,config,columns,rows,matriz_botones_2,2,mar1,mar2)) for c in range(x - x // 2)] for f in range(y)]
 
     # Calcular las posiciones x e y para centrar las matrices
     ancho_ventana = ventana.winfo_screenwidth()
