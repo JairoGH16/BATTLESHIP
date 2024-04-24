@@ -14,6 +14,12 @@ vidas_jugador2={"barcos_pequenos":6,
                 "barcos_grandes":6}
 
 def quitar_vidas(jugador:int,tipo_barco:str):
+    """si se destruye un barco baja la vida correspondiente
+
+    Args:
+        jugador (int): jugador
+        tipo_barco (str): tipo de barco en el juego
+    """
     print(vidas_jugador2["barcos_medianos"])
     global ultimo_intento
     if jugador==1:
@@ -64,6 +70,14 @@ def quitar_vidas(jugador:int,tipo_barco:str):
                 return
 
 def perder_empate(jugador:int,mar:list,pos_y:int,pos_x:int):
+    """hace perder al jugador si pierde su último chance
+
+    Args:
+        jugador (int): jugador
+        mar (list): mar
+        pos_y (int): posición y
+        pos_x (int): posición x
+    """
     if ultimo_intento[jugador]==True and mar[pos_y][pos_x]["pieza"]==".":
         if jugador==0:
             anunciar_ganador(nombre_j2)
@@ -72,7 +86,12 @@ def perder_empate(jugador:int,mar:list,pos_y:int,pos_x:int):
             anunciar_ganador(nombre_j1)
             return
 
-def anunciar_ganador(jugador):
+def anunciar_ganador(jugador:str):
+    """crea una ventana emergente anunciando al ganador
+
+    Args:
+        jugador (str): nombre del jugador
+    """
     ventana = tk.Tk()
     label = tk.Label(ventana, text=f"El ganador de esta partida es {jugador}",font=("ComicSansMS",25),bg="#8e582c",fg="#ffedba")
     ventana.title("Ganador")

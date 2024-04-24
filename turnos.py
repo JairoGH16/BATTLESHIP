@@ -12,14 +12,14 @@ turno=1
 visible=True
 ataque_posible=False
 
-def next_pj(matriz1,matriz2,mar1,mar2,l1,l2):
+def next_pj(matriz1:list,matriz2:list,mar1:list,mar2:list,l1,l2):
     """Esta funcion se encarga de llevar los turnos de los Jugadores, dejando entre cada turno un espacio neutro para el manejo del juego en un solo dispositivo.
 
     Args:
-        matriz1 (_type_): Matriz del Jugador 1
-        matriz2 (_type_): Matriz del Jugador 2
-        mar1 (_type_): Matriz logica del Jugador 1
-        mar2 (_type_): Matriz logica del Jugador 2
+        matriz1 (list): Matriz del Jugador 1
+        matriz2 (list): Matriz del Jugador 2
+        mar1 (list): Matriz logica del Jugador 1
+        mar2 (list): Matriz logica del Jugador 2
 
     Autor: Rafael Odio
     """

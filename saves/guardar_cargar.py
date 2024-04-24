@@ -2,7 +2,14 @@ import turnos as tur
 import logica.vidas as vidas
 import var_imagenes as imagenes
 
-def guardar_juego(mar1,mar2, nombre_archivo):
+def guardar_juego(mar1:list,mar2:list, nombre_archivo:str):
+    """guarda los datos del juego
+
+    Args:
+        mar1 (list): mar1
+        mar2 (list): mar2
+        nombre_archivo (str): nombre del archivo
+    """
     if not nombre_archivo.endswith(".txt"):
         nombre_archivo = nombre_archivo+".txt"
     nombre_archivo=nombre_archivo.replace("/","_").replace("\\","_").replace(":","_").replace(" ","_")
@@ -33,7 +40,12 @@ def guardar_juego(mar1,mar2, nombre_archivo):
         archivo.write(str(vidas.puntuacion_j1)+"\n")
         archivo.write(str(vidas.puntuacion_j2)+"\n")
 
-def cargar_mar(nombre_archivo):
+def cargar_mar(nombre_archivo:str):
+    """carga las matrices del mar
+
+    Args:
+        nombre_archivo (str): nombre del archivo
+    """
     try:
         with open(f"{nombre_archivo}"+".txt", "tr") as archivo:
             lineas=archivo.readlines()
@@ -45,7 +57,12 @@ def cargar_mar(nombre_archivo):
     except:
         print("no hay achivo con ese nombre")
 
-def cargar_otros(nombre_archivo):
+def cargar_otros(nombre_archivo:str):
+    """carga el resto de datos
+
+    Args:
+        nombre_archivo (str): el nombre del archivo
+    """
     try:
         with open(f"{nombre_archivo}"+".txt", "tr") as archivo:
             lineas=archivo.readlines()

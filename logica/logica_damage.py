@@ -3,6 +3,14 @@ import var_imagenes as im
 import turnos as tur
 
 def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
+    """si hay un barco en el botón que es atacado, daña su respectiva pieza y lo inmobiliza por completo
+
+    Args:
+        pos_x (int): posición x
+        pos_y (int): posición y
+        mar (list): mar
+        num_mar (int): número del mar, para saber de qué jugador es
+    """
     #Primero se revisa si no le pego a nada
     if mar[pos_y][pos_x]["pieza"]==".":
         print("no se ha golpeado nada")

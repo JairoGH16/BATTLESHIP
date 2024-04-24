@@ -17,17 +17,19 @@ def insertar_piezas(pieza:str,direccion:str,pos_x:int,pos_y:int,mar):
         mar[pos_y][pos_x]["pieza"]=pieza
         mar[pos_y][pos_x]["direccion"]=direccion
 
-def insertar_barcos(posx, posy,config,columns,rows,matriz_visual,mar:int,mar1,mar2):
+def insertar_barcos(posx:int, posy:int,config:int,columns:int,rows:int,matriz_visual:list,mar:int,mar1:list,mar2:list):
     """insertar_barcos es una función que permite insertar los barcos, insertando cada una de sus piezas por separado.
 
     Args:
-        posx (_type_): _description_
-        posy (_type_): _description_
-        config (_type_): _description_
-        columns (_type_): _description_
-        rows (_type_): _description_
-        matriz_visual (_type_): _description_
-        mar (_type_): _description_
+        posx (int): posición x
+        posy (int): posición y
+        config (int): configuración
+        columns (int): columnas_
+        rows (int): filas_
+        matriz_visual (list): matriz de interfaz
+        mar (int): número de mar
+        mar1 (list): mar de jugador 1
+        mar2 (list): mar de jugador 2
     """
     global verif
 
