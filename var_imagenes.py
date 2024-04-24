@@ -13,3 +13,5 @@ barcos2_1 = 0
 barcos2_2 = 0
 barcos3_1 = 0
 barcos3_2 = 0
+ptsj1 = 0
+ptsj2 = 0

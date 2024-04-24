@@ -281,7 +281,7 @@ def iniciar_juego(x, y, j1, j2,carga,nombre_archivo):
     else:
         mar1,mar2=saves.cargar_mar(f"{nombre_archivo}")
 
-    global rows, columns
+    global rows, columns, Jug1, Jug2
     rows = y
     columns = x
     for widget in ventana.winfo_children():
@@ -300,9 +300,9 @@ def iniciar_juego(x, y, j1, j2,carga,nombre_archivo):
 
     # Calcular las posiciones x e y para centrar las matrices
     ancho_ventana = ventana.winfo_screenwidth()
-    posx_matriz1 = (ancho_ventana//2)-(x*50//2)-20 # Restar 100 píxeles para dejar espacio
+    posx_matriz1 = (ancho_ventana//2)-(x*50//2)-20
     posy_matriz1 = 50
-    posx_matriz2 = (ancho_ventana//2)+20  # Sumar 150 píxeles para dejar espacio
+    posx_matriz2 = (ancho_ventana//2)+20
     posy = posy_matriz1
     for fila_botones, fila_botones_2 in zip(matriz_botones, matriz_botones_2):
         posx = posx_matriz1
@@ -342,9 +342,9 @@ def iniciar_juego(x, y, j1, j2,carga,nombre_archivo):
     config2.place(x=x*25,y=y*50+80)
     config3.place(x=x*25,y=y*50+110)
 
-    config1.configure(text="1 Barco", command=lambda: cambiar_config(1))
-    config2.configure(text="2 Barcos", command=lambda: cambiar_config(2))
-    config3.configure(text="3 Barcos", command=lambda: cambiar_config(3))
+    config1.configure(text="Destructor", command=lambda: cambiar_config(1))
+    config2.configure(text="Crucero", command=lambda: cambiar_config(2))
+    config3.configure(text="Acorazado", command=lambda: cambiar_config(3))
 
     reiniciar = tk.Button(ventana)
     reiniciar.place(x=x*25+100,y=y*50+110)
@@ -362,12 +362,17 @@ def iniciar_juego(x, y, j1, j2,carga,nombre_archivo):
 
     nj = tk.Button(ventana)
     nj.place(x=x*25+200, y=y*50+110)
-    nj.configure(text="Siguiente Jugador", command= lambda: tur.next_pj(matriz_botones,matriz_botones_2,mar1,mar2))
+    nj.configure(text="Siguiente", command= lambda: tur.next_pj(matriz_botones,matriz_botones_2,mar1,mar2,pts_j1,pts_j2))
 
     if tur.turno==1 and tur.visible==True:
         tur.rest_barcos(matriz_botones,mar1)
     if tur.turno==2 and tur.visible==True:
         tur.rest_barcos(matriz_botones_2,mar2)
+
+    pts_j1 = tk.Label(ventana, text=im.ptsj1, bg = "LightBlue", font=("Comic Sans MS", 20))
+    pts_j1.place(x=(ancho_ventana//2-50), y=0)
+    pts_j2 = tk.Label(ventana, text=im.ptsj2, bg = "LightBlue", font=("Comic Sans MS", 20))
+    pts_j2.place(x=(ancho_ventana//2+50), y=0)
 
 def restart(ventana):
     ventana.destroy()
@@ -396,20 +401,15 @@ def validar_inicio(c,f,j1,j2,nj1,nj2,carga):
             label.grid(row=0, column=0) 
             entry_arch = tk.Entry(ar)
             entry_arch.grid(row=1, column=0)
-
             aceptar = tk.Button(ar, text="Aceptar")
             aceptar.grid(row=2, column=0)
-
             def get_name():
-                j1 = vidas.nombre_j1
-                j2 = vidas.nombre_j2
                 nombre_archivo = entry_arch.get() 
                 saves.cargar_otros(f"{nombre_archivo}")
-                iniciar_juego(20,10,j1,j2,carga,nombre_archivo)
+                mar1,mar2=saves.cargar_mar(f"{nombre_archivo}")
+                iniciar_juego(len(mar1[0])*2,len(mar1),vidas.nombre_j1,vidas.nombre_j2,carga,nombre_archivo)
                 ar.destroy()
-
             aceptar.config(command=get_name)
-
             ar.mainloop()
 
     elif int(c.get()) >= 20 and int(f.get()) >= 10 and int(c.get())%2 == 0 and str(j1.get()) != "" and str(j2.get()) != "" and str(j1.get()) != str(j2.get()) and str(nj1.get()) != "" and str(nj2.get()) != "" and str(nj1.get()) != str(nj2.get()):

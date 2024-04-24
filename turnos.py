@@ -12,7 +12,7 @@ turno=1
 visible=True
 ataque_posible=False
 
-def next_pj(matriz1,matriz2,mar1,mar2):
+def next_pj(matriz1,matriz2,mar1,mar2,l1,l2):
     """Esta funcion se encarga de llevar los turnos de los Jugadores, dejando entre cada turno un espacio neutro para el manejo del juego en un solo dispositivo.
 
     Args:
@@ -25,6 +25,8 @@ def next_pj(matriz1,matriz2,mar1,mar2):
     """
     global mi, nj, fnl, fase_barcos_1, fase_barcos_2, turno, ataque_posible
     if fnl == True:
+        l1["text"]=im.ptsj1
+        l2["text"]=im.ptsj2
         ataque_posible=True
         mov.mover_barcos(mar1)
         rest_barcos(matriz1,mar1)
@@ -34,6 +36,8 @@ def next_pj(matriz1,matriz2,mar1,mar2):
         fnl = False
         return(nj, mi, fnl)
     elif nj == False and fnl == False:
+        l1["text"]=im.ptsj1
+        l2["text"]=im.ptsj2
         if (im.barcos1_1 == 6 and im.barcos2_1 == 4 and im.barcos3_1 == 2) or fase_barcos_1 == False:
             for fila in matriz1:
                 for boton in fila:
@@ -47,6 +51,8 @@ def next_pj(matriz1,matriz2,mar1,mar2):
         else:
             pass
     elif nj == None and fnl == False:
+        l1["text"]=im.ptsj1
+        l2["text"]=im.ptsj2
         ataque_posible=True
         mov.mover_barcos(mar2)
         rest_barcos(matriz2,mar2)#llamar rest barcos 2
@@ -55,6 +61,8 @@ def next_pj(matriz1,matriz2,mar1,mar2):
         mi = False
         return(nj, mi, fnl)
     elif nj == True and fnl == False:
+        l1["text"]=im.ptsj1
+        l2["text"]=im.ptsj2
         if (im.barcos1_2 == 6 and im.barcos2_2 == 4 and im.barcos3_2 == 2) or fase_barcos_2 == False:
             for fila in matriz2:
                 for boton in fila:

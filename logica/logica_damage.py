@@ -1,4 +1,6 @@
 import logica.vidas as vidas
+import var_imagenes as im
+import turnos as tur
 
 def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
     #Primero se revisa si no le pego a nada
@@ -68,6 +70,10 @@ def damage(pos_x:int,pos_y:int,mar:list,num_mar:int):
 
     #barco pequeno
     if mar[pos_y][pos_x]["pieza"]=="A":
+        if tur.nj == False:
+            im.ptsj1+=1
+        elif tur.nj == True:
+            im.ptsj2+=1
         mar[pos_y][pos_x]["pieza"]="."
         vidas.quitar_vidas(num_mar,"barcos_pequenos")
         mar[pos_y][pos_x]["danado"]=False

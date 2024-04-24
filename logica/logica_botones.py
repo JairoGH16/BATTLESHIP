@@ -1,7 +1,7 @@
 import turnos as tur
 import logica.insertar as insert
 import logica.logica_damage as damage
-
+import var_imagenes as im
 
 def accion_boton(posx,posy,config,columns,rows,matriz_botones,matriz_botones_rival,num_mar:int,mar1,mar2):
     if tur.turno<=2:
