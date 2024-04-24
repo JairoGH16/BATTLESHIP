@@ -14,6 +14,11 @@ config = 1
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def cambiar_config(num:int):
+    """Funcion para cambiar la configuracion
+
+    Args:
+        num (int): _description_
+    """
     global config
     if num == 1:
         config = 1
@@ -23,9 +28,16 @@ def cambiar_config(num:int):
         config =3
 
 def salir_juego():
+    """funcion para cerrar el juego
+    """
     exit()
 
 def mostrar_imagen(event):
+    """Funcion para mostrar donde se va a posicionar el barco
+
+    Args:
+        event (_type_): _description_
+    """
     if tur.mi == True and tur.fase_barcos_1 == True:
         boton = event.widget
         for f in range(len(matriz_botones)):
@@ -108,6 +120,11 @@ def mostrar_imagen(event):
                         break
 
 def mostrar_imagen_2(event):
+    """Funcion para mostrar donde se va a posicionar el barco seleccionado
+
+    Args:
+        event (_type_): evento
+    """
     if tur.mi == False and tur.fase_barcos_2 == True:
         boton = event.widget
         for f in range(len(matriz_botones_2)):
@@ -190,6 +207,11 @@ def mostrar_imagen_2(event):
                         break
 
 def ocultar_imagen(event):
+    """Funcion para ocultar fondos hechos por mostrar imagen
+
+    Args:
+        event (_type_): evento
+    """
     if tur.mi == True and tur.fase_barcos_1 == True:
         boton = event.widget
         for f in range(len(matriz_botones)):
@@ -220,6 +242,11 @@ def ocultar_imagen(event):
                     break
 
 def ocultar_imagen_2(event):
+    """Funcion para ocultar los fondos hechos por mostrar imagen
+
+    Args:
+        event (_type_): evento
+    """
     if tur.mi == False and tur.fase_barcos_2 == True:
         boton = event.widget
         for f in range(len(matriz_botones_2)):
@@ -253,6 +280,8 @@ mar1=[]
 mar2=[]
 
 def mandar_guardar():
+    """Se encarga de realizar los guardados
+    """
     ar = tk.Tk()
     label = tk.Label(ar, text="Ingrese el nombre del archivo")
     label.grid(row=0, column=0) 
@@ -272,6 +301,18 @@ def mandar_guardar():
     ar.mainloop()
 
 def iniciar_juego(x, y, j1, j2,carga,nombre_archivo):
+    """Funcion que crea la ventana del juego segun los parametros obtenidos
+
+    Args:
+        x (_type_): cantidad de columnas
+        y (_type_): cantidad de filas
+        j1 (_type_): nombre del jugador 1
+        j2 (_type_): nombre del jugador 2
+        carga (_type_): define si se esta o no cargando una partida
+        nombre_archivo (_type_): nombre del archivo que se esta cargando
+
+    Autores: Rafael Odio, Jairo Gonzales
+    """    
     vidas.nombre_j1=j1
     vidas.nombre_j2=j2
     global mar1,mar2
@@ -375,26 +416,72 @@ def iniciar_juego(x, y, j1, j2,carga,nombre_archivo):
     pts_j2.place(x=(ancho_ventana//2+50), y=0)
 
 def restart(ventana):
+    """Funcion(incompleta) para reinicar el juego
+
+    Args:
+        ventana (_type_): ventana actual
+    """
     ventana.destroy()
     pantalla_inicio()
 
 def rotar_barco_i():
+    """Funcion para rotar el barco a la izquierda
+
+    Returns:
+        _type_: angulo de rotacion
+
+    Autor: Rafael Odio
+    """
     im.angulo_rotacion = 180
     return im.angulo_rotacion
 
 def rotar_barco_d():
+    """Funcion para rotar los barcos a la derecha
+
+    Returns:
+        _type_: angulo de rotacion
+    
+    Autor: Rafael Odio
+    """
     im.angulo_rotacion = 0
     return im.angulo_rotacion
 
 def rotar_barco_a():
+    """Funcion para rotar los barcos hacia ariiba
+
+    Returns:
+        _type_: angulo de rotacion
+
+    Autor: Rafael Odio
+    """
     im.angulo_rotacion = 90
     return im.angulo_rotacion
 
 def rotar_barco_b():
+    """Funcion para rotar los barcos hacia abajo
+
+    Returns:
+        _type_: angulo de rotacion
+
+    Autor: Rafael Odio
+    """
     im.angulo_rotacion = 270
     return im.angulo_rotacion
 
 def validar_inicio(c,f,j1,j2,nj1,nj2,carga):
+    """Esta funcion valida los datos ingresados en el menu inicial y verifica que esten bien, segun las reglas del juego
+
+    Args:
+        c (_type_): columnas
+        f (_type_): filas
+        j1 (_type_): jugador 1
+        j2 (_type_): jugador 2
+        nj1 (_type_): nickname del jugador 1
+        nj2 (_type_): nickname del jugador 2
+        carga (_type_): variable que indica si se esta cargando o no una partida
+
+    Autor: Rafael Odio
+    """
     if carga == True:
             ar = tk.Tk()
             label = tk.Label(ar, text="Ingrese el nombre del archivo a cargar: ")
@@ -416,6 +503,13 @@ def validar_inicio(c,f,j1,j2,nj1,nj2,carga):
         iniciar_juego(int(c.get()), int(f.get()), str(j1.get()), str(j2.get()),carga,"")
 
 def pantalla_inicio() -> tk.Tk:
+    """Funcion para el menu inicial del juego, donde se ingresan los datos relacionados a este mismo
+
+    Returns:
+        tk.Tk: ventana principal
+
+    Autor: Rafael Odio
+    """    
     global ventana
     ventana = tk.Tk()
     ventana.attributes("-fullscreen",True)
